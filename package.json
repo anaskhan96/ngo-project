@@ -1,0 +1,19 @@
+{
+  "name": "ngo-project",
+  "version": "1.0.0",
+  "description": "website for the ngo vidyaniketan",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anaskhan96/ngo-project.git"
+  },
+  "author": "Anas Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anaskhan96/ngo-project/issues"
+  },
+  "homepage": "https://github.com/anaskhan96/ngo-project#readme"
+}
