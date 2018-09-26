@@ -3,7 +3,13 @@
 // listing all imports
 let express = require('express');
 let bodyParser = require('body-parser');
-let mongodb = require('mongodb');
+let dbjs = require('./db');
+
+// database setup
+let db = null;
+dbjs.initDB(function(database){
+	db = database;
+});
 
 // express setup
 let app = express();
@@ -15,16 +21,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-
-// database setup
-let db = null;
-let mongoClient = mongodb.MongoClient;
-mongoClient.connect('mongodb://localhost:27017/ngodb', function(err, database) {
-	if (!err) {
-		console.log('Connected to mongo database at port 27017');
-	}
-	db = database;
-});
 
 app.get('/', function(request, response) {
 	console.log('GET /');
