@@ -19,8 +19,8 @@ app.set('view engine', 'ejs');
 // database setup
 let db = null;
 let mongoClient = mongodb.MongoClient;
-mongoClient.connect('mongodb://localhost:27017/ngodb', function(err, database){
-	if(!err){
+mongoClient.connect('mongodb://localhost:27017/ngodb', function(err, database) {
+	if (!err) {
 		console.log('Connected to mongo database at port 27017');
 	}
 	db = database;
