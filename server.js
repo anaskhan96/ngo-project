@@ -7,7 +7,7 @@ let dbjs = require('./db');
 
 // database setup
 let db = null;
-dbjs.initDB(function(database){
+dbjs.initDB(function(database) {
 	db = database;
 });
 
