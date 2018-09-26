@@ -18,6 +18,7 @@
   "homepage": "https://github.com/anaskhan96/ngo-project#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "mongodb": "^3.1.6"
