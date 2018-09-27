@@ -3,13 +3,6 @@
 // listing all imports
 let express = require('express');
 let bodyParser = require('body-parser');
-let dbjs = require('./db');
-
-// database setup
-let db = null;
-dbjs.initDB(function(database) {
-	db = database;
-});
 
 // express setup
 let app = express();
@@ -22,9 +15,9 @@ app.use(bodyParser.urlencoded({
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
+app.get('/', function(req, res) {
 	console.log('GET /');
-	response.send('heyy');
+	res.send('heyy');
 });
 
 // Listening on localhost:8080
