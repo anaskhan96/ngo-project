@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NGO Portal | Login</title>
+</head>
+<body>
+<h3>Login: </h3>
+<input type="text" name="username" id="username" placeholder="Username">
+<input type="password" name="password" id="password" placeholder="Password">
+<button id="loginButton">Go!</button>
+
+<script type="text/javascript">
+	'use strict';
+	function performLogin(){
+		let username = document.getElementById('username').value;
+		let password = document.getElementById('password').value;
+		fetch('/login', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'  
+			},
+			body: JSON.stringify({
+				username: username,
+				password: password
+			})
+		}).then(function (response){
+			return response.json();
+		}).then(function (res){
+			if(res.status == 'success')
+				window.location.href = 'http://localhost:8080/student';
+		}).catch(function (error){
+			console.log(error);
+		});
+	}
+	let loginButton = document.getElementById('loginButton');
+	loginButton.addEventListener('click', performLogin, false);
+</script>
+
+</body>
+</html>
