@@ -2,17 +2,17 @@
 
 let express = require('express');
 let auth = require('../middleware/auth');
-let studentHomeRouter = express.Router();
+let studentRouter = express.Router();
 
-studentHomeRouter.use(function(req, res, next) {
+studentRouter.use(function(req, res, next) {
 	auth.authenticate(req, res, next, 'student');
 });
 
-studentHomeRouter.get('/', function(req, res) {
+studentRouter.get('/', function(req, res) {
 	console.log('GET /student');
 	res.render('studentHome.ejs', {
 		user: req.user
 	});
 });
 
-module.exports = studentHomeRouter;
+module.exports = studentRouter;

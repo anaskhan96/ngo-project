@@ -5,8 +5,10 @@ let express = require('express');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let loginRouter = require('./routes/login');
-let studentHomeRouter = require('./routes/studentHome');
-let aboutRouter = require('./routes/about');
+let studentRouter = require('./routes/student');
+let teacherRouter = require('./routes/teacher');
+let volunteerRouter = require('./routes/volunteer');
+let managementRouter = require('./routes/management');
 let auth = require('./middleware/auth');
 
 // express setup
@@ -31,8 +33,10 @@ app.get('/', function(req, res, next) {
 	});
 
 app.use('/login', loginRouter);
-app.use('/student', studentHomeRouter);
-app.use('/about', aboutRouter);
+app.use('/student', studentRouter);
+app.use('/teacher', teacherRouter);
+app.use('/volunteer', volunteerRouter);
+app.use('/management', managementRouter);
 
 app.get('/logout', function(req, res) {
 	res.clearCookie('ngotok');
