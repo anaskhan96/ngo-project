@@ -4,11 +4,8 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
-let loginRouter = require('./routes/login');
-let studentRouter = require('./routes/student');
-let teacherRouter = require('./routes/teacher');
-let volunteerRouter = require('./routes/volunteer');
-let managementRouter = require('./routes/management');
+let requireDir = require('require-dir');
+let routes = requireDir('./routes');
 let auth = require('./middleware/auth');
 
 // express setup
@@ -24,7 +21,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res, next) {
-		if(!req.cookies.ngotok) return next();
+		if (!req.cookies.ngotok) return next();
 		auth.direct(res, next, req.cookies.ngotok);
 	},
 	function(req, res) {
@@ -32,11 +29,9 @@ app.get('/', function(req, res, next) {
 		res.render('index.ejs');
 	});
 
-app.use('/login', loginRouter);
-app.use('/student', studentRouter);
-app.use('/teacher', teacherRouter);
-app.use('/volunteer', volunteerRouter);
-app.use('/management', managementRouter);
+
+for (let route in routes)
+	app.use('/' + route, routes[route]);
 
 app.get('/logout', function(req, res) {
 	res.clearCookie('ngotok');
