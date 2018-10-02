@@ -26,8 +26,9 @@
 		}).then(function (response){
 			return response.json();
 		}).then(function (res){
-			if(res.status == 'success')
-				window.location.href = 'http://localhost:8080/student';
+			// bad use, should set cookie from server side with HttpOnly
+			document.cookie = 'ngotok=' + res.token;
+			window.location.href = 'http://localhost:8080';
 		}).catch(function (error){
 			console.log(error);
 		});

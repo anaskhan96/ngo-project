@@ -20,15 +20,27 @@ app.use(bodyParser.urlencoded({
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
-	console.log('GET /');
-	res.render('index.ejs');
-	// Or authenticate with token and redirect to home
-});
+app.get('/', function(req, res, next) {
+		if (!req.cookies.ngotok) {
+			next();
+		} else {
+			req.user = req.cookies.ngotok;
+			res.redirect('/student');
+		}
+	},
+	function(req, res) {
+		console.log('GET /');
+		res.render('index.ejs');
+	});
 
 app.use('/login', loginRouter);
 app.use('/student', studentHomeRouter);
 app.use('/about', aboutRouter);
+
+app.get('/logout', function(req, res) {
+	res.clearCookie('ngotok');
+	res.redirect('/');
+});
 
 // Listening on localhost:8080
 app.listen(app.get('port'), function() {

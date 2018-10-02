@@ -12,11 +12,8 @@ loginRouter.get('/', function(req, res) {
 loginRouter.post('/', function(req, res) {
 	console.log('POST /login');
 	let token = auth.authorize(req.body);
-	res.cookie('ngotok', token, {
-		httpOnly: true
-	});
 	res.json({
-		status: "success"
+		token: token
 	});
 });
 

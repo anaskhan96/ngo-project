@@ -6,7 +6,7 @@ let studentHomeRouter = express.Router();
 
 studentHomeRouter.use(function(req, res, next) {
 	if (!req.cookies.ngotok) {
-		res.redirect('/');
+		res.redirect('/login');
 	} else {
 		req.user = auth.authenticate(req.cookies.ngotok);
 		next();
