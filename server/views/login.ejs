@@ -6,7 +6,11 @@
 <body>
 <h3>Login: </h3>
 <input type="text" name="username" id="username" placeholder="Username">
-<input type="password" name="password" id="password" placeholder="Password">
+<input type="password" name="password" id="password" placeholder="Password"><br>
+<input type="radio" name="usertype" value="student"> Student <br>
+<input type="radio" name="usertype" value="teacher"> Teacher <br>
+<input type="radio" name="usertype" value="volunteer"> Volunteer <br>
+<input type="radio" name="usertype" value="management"> Management <br>
 <button id="loginButton">Go!</button>
 
 <script type="text/javascript">
@@ -14,6 +18,16 @@
 	function performLogin(){
 		let username = document.getElementById('username').value;
 		let password = document.getElementById('password').value;
+		let usertypes = document.getElementsByName('usertype');
+		let i;
+		let usertype = null;
+		for(i = 0; i < usertypes.length; i++){
+			if(usertypes[i].checked){
+				usertype = usertypes[i].value;
+				break;
+			}
+		}
+		if(i == usertypes.length) return alert('Please check a box');
 		fetch('/login', {
 			method: 'POST',
 			headers: {
@@ -21,14 +35,20 @@
 			},
 			body: JSON.stringify({
 				username: username,
-				password: password
+				password: password,
+				usertype: usertype
 			})
 		}).then(function (response){
 			return response.json();
 		}).then(function (res){
-			// bad use, should set cookie from server side with HttpOnly
-			document.cookie = 'ngotok=' + res.token;
-			window.location.href = 'http://localhost:8080';
+			if(!res.success){
+				alert('Username or password provided is incorrect!');
+			}
+			else{
+				// bad use, should set cookie from server side with HttpOnly
+				document.cookie = 'ngotok=' + res.token;
+				window.location.href = 'http://localhost:8080';
+			}
 		}).catch(function (error){
 			console.log(error);
 		});

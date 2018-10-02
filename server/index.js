@@ -7,6 +7,7 @@ let cookieParser = require('cookie-parser');
 let loginRouter = require('./routes/login');
 let studentHomeRouter = require('./routes/studentHome');
 let aboutRouter = require('./routes/about');
+let auth = require('./middleware/auth');
 
 // express setup
 let app = express();
@@ -21,12 +22,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res, next) {
-		if (!req.cookies.ngotok) {
-			next();
-		} else {
-			req.user = req.cookies.ngotok;
-			res.redirect('/student');
-		}
+		if(!req.cookies.ngotok) return next();
+		auth.direct(res, next, req.cookies.ngotok);
 	},
 	function(req, res) {
 		console.log('GET /');

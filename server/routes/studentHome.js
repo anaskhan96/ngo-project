@@ -5,12 +5,7 @@ let auth = require('../middleware/auth');
 let studentHomeRouter = express.Router();
 
 studentHomeRouter.use(function(req, res, next) {
-	if (!req.cookies.ngotok) {
-		res.redirect('/login');
-	} else {
-		req.user = auth.authenticate(req.cookies.ngotok);
-		next();
-	}
+	auth.authenticate(req, res, next, 'student');
 });
 
 studentHomeRouter.get('/', function(req, res) {

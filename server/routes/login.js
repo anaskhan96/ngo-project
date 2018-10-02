@@ -11,9 +11,14 @@ loginRouter.get('/', function(req, res) {
 
 loginRouter.post('/', function(req, res) {
 	console.log('POST /login');
-	let token = auth.authorize(req.body);
-	res.json({
-		token: token
+	auth.authorize(req.body, function(err, result) {
+		if (err) res.json({
+			success: false
+		});
+		else res.json({
+			success: true,
+			token: result
+		});
 	});
 });
 
