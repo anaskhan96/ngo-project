@@ -38,7 +38,4 @@ app.get('/logout', function(req, res) {
 	res.redirect('/');
 });
 
-// Listening on localhost:8080
-app.listen(app.get('port'), function() {
-	console.log("App running on localhost:", app.get('port'));
-});
+module.exports = app;
