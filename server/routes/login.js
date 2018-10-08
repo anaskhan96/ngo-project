@@ -15,10 +15,15 @@ loginRouter.post('/', function(req, res) {
 		if (err) res.json({
 			success: false
 		});
-		else res.json({
-			success: true,
-			token: result
-		});
+		else {
+			res.cookie('ngotok', result, {
+				httpOnly: true
+			});
+			res.json({
+				success: true,
+				token: result
+			});
+		}
 	});
 });
 

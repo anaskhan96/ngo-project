@@ -33,6 +33,7 @@
 			headers: {
 				'Content-Type': 'application/json'  
 			},
+			credentials: 'include',
 			body: JSON.stringify({
 				username: username,
 				password: password,
@@ -45,8 +46,6 @@
 				alert('Username or password provided is incorrect!');
 			}
 			else{
-				// bad use, should set cookie from server side with HttpOnly
-				document.cookie = 'ngotok=' + res.token;
 				window.location.href = 'http://localhost:8080';
 			}
 		}).catch(function (error){
