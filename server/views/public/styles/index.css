@@ -15,7 +15,7 @@ html,body{
   align-content: flex-start;
   height:50vw;
   min-height:400px;
-  max-height:100vh;
+  /*max-height:100vh;*/
   min-width:300px;
   color:#eee;
 }
@@ -32,7 +32,7 @@ html,body{
 .header:before{
   content:"";
   width:100%;
-  height:100%;
+  height:100vh;
   position:absolute;
   top:0;
   left:0;
@@ -199,7 +199,7 @@ html,body{
 			width: 100%;
 			height: 100%;
 			overflow: hidden;
-			background-color: rgb(127, 43, 122);
+      background-color: rgb(127, 43, 122);
 		}
 		.slideImage {
 			display: block;
@@ -212,7 +212,7 @@ html,body{
 			position: absolute;
 			font-size: 3.4em;
 			font-weight: bolder;
-			top: 102vh;
+			top: 86vh;
 			left: 18vw;
 		}
 		.schoolName {
@@ -525,7 +525,7 @@ html,body{
   margin-left: 30px;
   width: 10vw;
 	left: 85vw;
-	top: 312vh;
+	top: 200vh;
 	position: absolute;
 
 	 }
@@ -535,6 +535,7 @@ html,body{
     display: block;
     height: 300px;
     margin: 0 35px 10px;
+    margin-bottom: 0px;
     padding: 5px;
     position: relative;
     width: 20px;
@@ -554,7 +555,7 @@ html,body{
 	.donation-meter> .total {
     font-size: 16px;
     position: absolute;
-		top: 340vh;
+		top: 320vh;
     right: 0vw;
 }
 

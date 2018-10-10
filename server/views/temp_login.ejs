@@ -92,7 +92,7 @@ div{
 		text-align: center;
 		font-size: 18px;
 		
-		color: white;
+		/*color: white;*/
 		
 		transition-duration: 0.25s;
 		font-weight: 300;
@@ -246,10 +246,10 @@ div{
             <div class="form">
                 <input type="text" name="username" id="username" placeholder="Username">
                 <input type="password" name="password" id="password" placeholder="Password">
-                <input type="radio" name="usertype" value="student"> Student
-				<input type="radio" name="usertype" value="teacher"> Teacher
-				<input type="radio" name="usertype" value="volunteer"> Volunteer
-				<input type="radio" name="usertype" value="management"> Management
+                 <label style="position:absolute; ">Student</label><input type="radio" name="usertype" value="student" ><br>
+				 <label style="position:absolute; ">Teacher</label><input type="radio" name="usertype" value="teacher"><br>
+				<label style="position:absolute; ">Volunteer</label><input type="radio" name="usertype" value="volunteer"><br>
+				<label style="position:absolute; ">Management</label><input type="radio" name="usertype" value="management"> <br>
                 <button id="login-button">Login</button>
             </div>
         </div>
