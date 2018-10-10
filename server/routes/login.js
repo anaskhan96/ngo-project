@@ -6,7 +6,7 @@ let loginRouter = express.Router();
 
 loginRouter.get('/', function(req, res) {
 	console.log('GET /login');
-	res.render('login.ejs');
+	res.render('temp_login.ejs');
 });
 
 loginRouter.post('/', function(req, res) {

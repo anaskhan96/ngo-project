@@ -39,7 +39,7 @@ html,body{
 	-webkit-backface-visibility: hidden;
 	-webkit-transform: translateZ(0) scale(1.0, 1.0);
 	transform: translateZ(0);
-  background:#1B2030 url(public/resources/class0.jpg) top center no-repeat;
+  background:#1B2030 url(../resources/class0.jpg) top center no-repeat;
   background-size:cover;
   background-attachment:fixed;
   animation: grow 25s  linear 10ms infinite;
