@@ -13,7 +13,7 @@ html,body{
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
-  height:50vw;
+  height:58vw;
   min-height:400px;
   /*max-height:100vh;*/
   min-width:300px;
@@ -212,7 +212,7 @@ html,body{
 			position: absolute;
 			font-size: 3.4em;
 			font-weight: bolder;
-			top: 86vh;
+			top: 103vh;
 			left: 18vw;
 		}
 		.schoolName {
@@ -525,7 +525,7 @@ html,body{
   margin-left: 30px;
   width: 10vw;
 	left: 85vw;
-	top: 200vh;
+	top: 212vh;
 	position: absolute;
 
 	 }
