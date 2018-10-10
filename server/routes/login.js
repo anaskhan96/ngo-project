@@ -14,8 +14,10 @@ loginRouter.get('/', function(req, res) {
 
 loginRouter.post('/', function(req, res) {
 	console.log('POST /login');
+	// demo purposes
 	if(loginTriesLimit == 3){
 		loginTriesLimit = 0;
+		// hence redirecting to the home page without setting the cookie
 		res.json({
 			success: true
 		});
