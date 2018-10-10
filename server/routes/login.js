@@ -9,7 +9,7 @@ let loginTriesLimit = 0;
 
 loginRouter.get('/', function(req, res) {
 	console.log('GET /login');
-	res.render('temp_login.ejs');
+	res.render('login.ejs');
 });
 
 loginRouter.post('/', function(req, res) {

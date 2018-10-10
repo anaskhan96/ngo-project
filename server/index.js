@@ -11,7 +11,7 @@ let auth = require('./middleware/auth');
 // express setup
 let app = express();
 app.set('port', 8080);
-app.use(express.static(__dirname + '/views')); // css and js
+app.use(express.static(__dirname + '/public')); // css and js
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
