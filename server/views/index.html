@@ -1,0 +1,103 @@
+	<!DOCTYPE html>
+<html>
+<head>
+	<title>NGO Portal</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+	<link href="public/styles/index.css" rel="stylesheet">
+	<script type="text/javascript" src="routes/index.js"></script>
+
+</head>
+<body>
+		<div class="header">
+			<div class="sides">
+				<img src="public/resources/logo.png" id="logo_image">
+				<h2 class="logoText">vidyanikethan</h2>
+				<a href="#about" class="logo1">ABOUT US</a>
+				<a href="#donashun" class="logo2">DONATE</a>
+				<a href="#volunteer" class="logo3">VOLUNTEER</a>
+				<a href="#volunteer" class="logo4">LOG IN</a>
+					
+			</div>
+			<div class="sides"> <a href="#" class="menu">-</a></div>
+				<div class="info">
+					<h4><a href="#category"></a></h4>
+				  <h1 class="schoolName"><b>SRI VIDYANIKETHAN SCHOOL</b></h1>
+				  <div class="meta" style="font-size: 1.8em;">
+						Integrated sustainable community development through community participation.
+					</div>
+				</div>
+		</div>
+				
+<div class="slideShowContainer" id="about">
+	<h1 id="slideText"><b>Why empowering children matters?</b></h1>	
+	<div class="mySlides"><img class="slideImage" src="public/resources/Slide1.png"></div>
+	<div class="mySlides"><img class="slideImage" src="public/resources/Slide2.png"></div>
+	<div class="mySlides"><img class="slideImage" src="public/resources/Slide3.png"></div>
+	<div class="mySlides"><img class="slideImage" src="public/resources/Slide4.png"></div>
+	<div class="mySlides"><img class="slideImage" src="public/resources/Slide5.png"></div>
+</div>
+<!--</section>-->
+
+<!-- <div id="volunteer">
+
+</div> -->
+<div class="donation-container" id="donashun">
+		<div class="donation-meter">
+				<strong style="margin-left:-2vw;">Monthly Requirements</strong>
+				<strong class="goal" style="margin-left:-2vw;">₹35,000</strong>
+				<span class="glass">
+						<strong class="total" style="bottom: 30%; position: absolute; top:55vh; left: -2.5vw; font-size: 2em;">₹4,750</strong>
+						<span class="amount" style="height: 30%"></span>
+				</span>
+				<div class="bulb">
+						<span class="red-circle"></span>
+						<span class="filler">
+								<span></span>
+						</span>
+				</div>
+			</div>
+            
+		<div class="donation-box">
+			<div class="title">Donation Information</div>
+			
+			<div class="fields">
+				<input type="text" id="firstName" placeholder="First Name"> </input>
+				<input type="text" id="lastName" placeholder="Last Name"> </input>
+				<input type="text" id="email" placeholder="Email"> </input>
+			</div>
+			
+			<div class="amount">
+				<div class="button">₹100</div>
+				<div class="button">₹500</div>
+				<div class="button">₹1000</div>
+				<div class="button">₹<input type="text" class="set-amount" placeholder=""> </input></div>
+			</div>
+			
+			<div class="switch">
+	<input type="radio" class="switch-input" name="view" value="One-Time" id="one-time" checked="">
+	<label for="one-time" class="switch-label switch-label-off">One-Time</label>
+	<input type="radio" class="switch-input" name="view" value="Monthly" id="monthly">
+	<label for="monthly" class="switch-label switch-label-on">Sponsor a Child</label>
+	<span class="switch-selection"></span>
+	</div>
+	
+	<div class="checkboxes">
+	<input type="checkbox" id="receipt" class="checkbox" />
+	<label for="receipt">Email Me A Receipt</label>
+	<br />
+	<input type="checkbox" id="anon" class="checkbox" />
+	<label for="anon">Give Anonymously</label>
+	<br />
+	<input type="checkbox" id="list" class="checkbox" />
+	<label for="list">Add Me To Email List</label>
+	</div>
+	
+	<div class="confirm">
+	</div>
+			<div class="donate-button"><i class="fa fa-credit-card"></i> Donate Now</div>
+		</div>
+</div>
+</body>
+</html>
