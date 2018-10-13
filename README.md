@@ -19,4 +19,6 @@ DB_USER=<username>
 DB_PASS=<password>
 ```
 
-+ Run `npm start` to run the server at the specified port.
++ Run `npm test` to run all the tests.
+
++ Run `npm start` to start the server at the specified port.
