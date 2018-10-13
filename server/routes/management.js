@@ -4,11 +4,11 @@ let express = require('express');
 let auth = require('../middleware/auth');
 let managementRouter = express.Router();
 
-managementRouter.use(function(req, res, next) {
+managementRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'management');
 });
 
-managementRouter.get('/', function(req, res) {
+managementRouter.get('/', (req, res) => {
 	console.log('GET /management');
 	res.render('managementHome.ejs', {
 		user: req.user

@@ -7,12 +7,12 @@ let loginRouter = express.Router();
 // for demo purposes
 let loginTriesLimit = 0;
 
-loginRouter.get('/', function(req, res) {
+loginRouter.get('/', (req, res) => {
 	console.log('GET /login');
 	res.render('login.ejs');
 });
 
-loginRouter.post('/', function(req, res) {
+loginRouter.post('/', (req, res) => {
 	console.log('POST /login');
 	// demo purposes
 	if (loginTriesLimit == 3) {
@@ -23,7 +23,7 @@ loginRouter.post('/', function(req, res) {
 		});
 		return;
 	}
-	auth.authorize(req.body, function(err, result) {
+	auth.authorize(req.body, (err, result) => {
 		if (err) {
 			loginTriesLimit++;
 			res.json({

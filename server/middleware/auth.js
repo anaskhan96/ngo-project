@@ -6,7 +6,7 @@ let crypto = require('crypto');
 const secret = 'xxxngoxxx'; // should obviously think of a better secret
 
 let dbClient = null;
-db.initDB(function(database) {
+db.initDB((database) => {
 	dbClient = database;
 });
 
@@ -29,7 +29,7 @@ function authenticate(req, res, next, usertype) {
 function authorize(user, callback) {
 	dbClient.collection(user.usertype).findOne({
 		'username': user.username
-	}, function(err, result) {
+	}, (err, result) => {
 		if (err) throw err;
 		else {
 			if (result == null) return callback('not found', null);

@@ -20,11 +20,11 @@ app.use(bodyParser.urlencoded({
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res, next) {
+app.get('/', (req, res, next) => {
 		if (!req.cookies.ngotok) return next();
 		auth.direct(res, next, req.cookies.ngotok);
 	},
-	function(req, res) {
+	(req, res) => {
 		console.log('GET /');
 		res.render('index.ejs');
 	});
@@ -33,7 +33,7 @@ app.get('/', function(req, res, next) {
 for (let route in routes)
 	app.use('/' + route, routes[route]);
 
-app.get('/logout', function(req, res) {
+app.get('/logout', (req, res) => {
 	res.clearCookie('ngotok');
 	res.redirect('/');
 });

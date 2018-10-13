@@ -4,49 +4,49 @@ let assert = require('assert');
 let request = require('supertest');
 let app = require('../server');
 
-describe('Visitor test', function() {
-	it('should return main page', function(done) {
+describe('Visitor test', () => {
+	it('should return main page', (done) => {
 		request(app)
 			.get('/')
 			.expect('Content-Type', 'text/html; charset=utf-8')
 			.expect(200)
-			.end(function(err, res) {
+			.end((err, res) => {
 				if (err) assert.fail(err);
 				done();
 			});
 	});
 
-	it('should return login page', function(done) {
+	it('should return login page', (done) => {
 		request(app)
 			.get('/login')
 			.expect('Content-Type', 'text/html; charset=utf-8')
 			.expect(200)
-			.end(function(err, res) {
+			.end((err, res) => {
 				if (err) assert.fail(err);
 				done();
 			});
 	});
 
-	it('should redirect to login page', function(done) {
+	it('should redirect to login page', (done) => {
 		request(app)
 			.get('/student')
 			.expect('Content-Type', 'text/plain; charset=utf-8')
 			.expect(302)
-			.end(function(err, res) {
+			.end((err, res) => {
 				if (err) assert.fail(err);
 				done();
 			});
 	});
 });
 
-describe('User (student) session test', function() {
+describe('User (student) session test', () => {
 	let cookies = null;
 
-	before(function(done) {
+	before((done) => {
 		setTimeout(() => done(), 1500);
 	});
 
-	it('should return success message post login', function(done) {
+	it('should return success message post login', (done) => {
 		request(app)
 			.post('/login')
 			.set('Accept', 'application/json')
@@ -57,7 +57,7 @@ describe('User (student) session test', function() {
 			})
 			.expect('Content-Type', 'application/json; charset=utf-8')
 			.expect(200)
-			.end(function(err, res) {
+			.end((err, res) => {
 				if (err) assert.fail(err);
 				assert.equal(res.body.success, true);
 				cookies = res.headers['set-cookie'].pop().split(';')[0];
@@ -65,24 +65,24 @@ describe('User (student) session test', function() {
 			});
 	});
 
-	it('should return student homepage after login', function(done){
+	it('should return student homepage after login', (done) => {
 		request(app)
 			.get('/student')
 			.set('Cookie', cookies)
 			.expect('Content-Type', 'text/html; charset=utf-8')
 			.expect(200)
-			.end(function(err, res) {
+			.end((err, res) => {
 				if (err) assert.fail(err);
 				done();
 			})
 	});
 
-	it('should redirect to main page after logout', function(done) {
+	it('should redirect to main page after logout', (done) => {
 		request(app)
 			.get('/logout')
 			.expect('Content-Type', 'text/plain; charset=utf-8')
 			.expect(302)
-			.end(function(err, res) {
+			.end((err, res) => {
 				if (err) assert.fail(err);
 				done();
 			});

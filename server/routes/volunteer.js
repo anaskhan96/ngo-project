@@ -4,11 +4,11 @@ let express = require('express');
 let auth = require('../middleware/auth');
 let volunteerRouter = express.Router();
 
-volunteerRouter.use(function(req, res, next) {
+volunteerRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'volunteer');
 });
 
-volunteerRouter.get('/', function(req, res) {
+volunteerRouter.get('/', (req, res) => {
 	console.log('GET /volunteer');
 	res.render('volunteerHome.ejs', {
 		user: req.user
