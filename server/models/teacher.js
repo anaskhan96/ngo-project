@@ -9,7 +9,8 @@ const teacherSchema = mongoose.Schema({
 	},
 	email: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	username: {
 		type: String,

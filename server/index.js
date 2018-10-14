@@ -38,7 +38,6 @@ app.get('/', (req, res, next) => {
 		res.render('index.ejs');
 	});
 
-
 for (let route in routes)
 	app.use('/' + route, routes[route]);
 
