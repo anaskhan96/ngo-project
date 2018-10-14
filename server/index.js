@@ -7,6 +7,15 @@ let cookieParser = require('cookie-parser');
 let requireDir = require('require-dir');
 let routes = requireDir('./routes');
 let auth = require('./middleware/auth');
+let mongoose = require('mongoose');
+
+// connect to db
+mongoose.connect('mongodb://localhost:27017/ngodb', {
+	useNewUrlParser: true
+}).then(
+	() => console.log('mongoose connected to db'),
+	err => console.log(err)
+);
 
 // express setup
 let app = express();
