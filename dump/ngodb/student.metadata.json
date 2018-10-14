@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"ngodb.student"},{"v":2,"unique":true,"key":{"username":1},"name":"username_1","ns":"ngodb.student","background":true}],"uuid":"308e4e80acaa43aab1e10196a45f8661"}
