@@ -31,10 +31,7 @@ function authorize(user, callback) {
 		if (!matchPassword(user.password, saltKey[0], saltKey[1]))
 			callback('not found', null);
 		else
-			callback(null, jwt.encode({
-				username: user.username,
-				usertype: user.usertype
-			}, secret));
+			callback(null, generateToken(user.username, user.usertype));
 	});
 }
 
@@ -53,8 +50,23 @@ function matchPassword(plaintext, salt, key) {
 	return key == derivedKey;
 }
 
+function generatePassword(plaintext) {
+	let salt = crypto.randomBytes(10).toString('hex');
+	let key = crypto.pbkdf2Sync(plaintext, salt, 10000, 32, 'sha512').toString('hex');
+	return salt + '+' + key;
+}
+
+function generateToken(username, usertype) {
+	return jwt.encode({
+		username: username,
+		usertype: usertype
+	}, secret);
+}
+
 module.exports = {
 	authenticate: authenticate,
 	authorize: authorize,
-	direct: direct
+	direct: direct,
+	generatePassword: generatePassword,
+	generateToken: generateToken
 };

@@ -5,19 +5,44 @@ var questions = [
 {question:"Subject preference?"},
 {question:"Prefered time?"},
 {question:"What's your email?", type: "text", pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/},
+{question:"Create your username", type: "text"},
 {question:"Create your password", type: "password"},
 {question:"Re-enter password", type: "password"}
 ]
 
 var onComplete = function() {
 
-    var h1 = document.createElement('h1')
-    h1.appendChild(document.createTextNode('Thank you ' + questions[0].answer + ' for joining us!'))
-    setTimeout(function() {
-    register.parentElement.appendChild(h1)
-    setTimeout(function() { h1.style.opacity = 1 }, 50)
-    }, 1000)
-
+    fetch('/volunteer_registration', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            name: questions[0].answer+' '+questions[1].answer,
+            class: questions[2].answer,
+            subject: questions[3].answer,
+            time: questions[4].answer,
+            email: questions[5].answer,
+            username: questions[6].answer,
+            password: questions[7].answer
+        })
+    })
+    .then((response) => response.json())
+    .then((res) => {
+        if(!res.success){
+            alert('Registration failed: ' + res.errorMsg);
+            window.location.href = '/volunteer_registration';
+        }
+        var h1 = document.createElement('h1')
+        h1.appendChild(document.createTextNode('Thank you ' + questions[0].answer + ' for joining us!'))
+        setTimeout(function() {
+        register.parentElement.appendChild(h1)
+        setTimeout(function() { h1.style.opacity = 1 }, 50)
+        }, 1000)
+        setTimeout(() => window.location.href = '/volunteer', 4000);
+    })
+    .catch((err) => console.log(err));
 }
 
 ;(function(questions, onComplete) {

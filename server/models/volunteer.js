@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+let auth = require('../middleware/auth');
 
 const volunteerSchema = mongoose.Schema({
 	name: {
@@ -33,6 +34,12 @@ const volunteerSchema = mongoose.Schema({
 		type: String,
 		default: "any"
 	}
+});
+
+volunteerSchema.pre('save', function (next){
+	let derivedKey = auth.generatePassword(this.password);
+	this.password = derivedKey;
+	next();
 });
 
 module.exports = mongoose.model('volunteer', volunteerSchema, 'volunteer');
