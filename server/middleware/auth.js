@@ -1,14 +1,8 @@
 'use strict';
 
 let jwt = require('jwt-simple');
-let db = require('./db');
 let crypto = require('crypto');
 const secret = 'xxxngoxxx'; // should obviously think of a better secret
-
-let dbClient = null;
-db.initDB((database) => {
-	dbClient = database;
-});
 
 function authenticate(req, res, next, usertype) {
 	if (!req.cookies.ngotok) return res.redirect('/login');
@@ -27,21 +21,20 @@ function authenticate(req, res, next, usertype) {
 }
 
 function authorize(user, callback) {
-	dbClient.collection(user.usertype).findOne({
-		'username': user.username
-	}, (err, result) => {
+	let usertype = require('../models/' + user.usertype);
+	usertype.findOne({
+		username: user.username
+	}, (err, res) => {
 		if (err) throw err;
-		else {
-			if (result == null) return callback('not found', null);
-			let saltKey = result.password.split('+');
-			if (!matchPassword(user.password, saltKey[0], saltKey[1]))
-				callback("not found", null);
-			else
-				callback(null, jwt.encode({
-					username: user.username,
-					usertype: user.usertype
-				}, secret));
-		}
+		if (res == null) return callback('not found', null);
+		let saltKey = res.password.split('+');
+		if (!matchPassword(user.password, saltKey[0], saltKey[1]))
+			callback('not found', null);
+		else
+			callback(null, jwt.encode({
+				username: user.username,
+				usertype: user.usertype
+			}, secret));
 	});
 }
 
