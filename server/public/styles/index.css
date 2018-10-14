@@ -13,7 +13,7 @@ html,body{
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
-  height:58vw;
+  height:50vw;
   min-height:400px;
   /*max-height:100vh;*/
   min-width:300px;
@@ -21,8 +21,8 @@ html,body{
 }
 .header:after{
   content:"";
-  width:100%;
-  height:40%;
+  width:100vw;
+  height:40vh;
   position:absolute;
   bottom:0;
   left:0;
@@ -588,3 +588,4 @@ html,body{
       right: -15px;
     z-index: 30;
   }
+
