@@ -38,4 +38,9 @@ app.get('/logout', (req, res) => {
 	res.redirect('/');
 });
 
+app.use((req, res, next) => {
+	console.log('Undefined route: ' + req.method + ' ' + req.originalUrl);
+	res.status(404).render('404.ejs');
+});
+
 module.exports = app;
