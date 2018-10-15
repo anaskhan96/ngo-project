@@ -518,7 +518,10 @@ html,body{
 
 #volunteer {
 	height: 100vh;
-	width: 100%;
+  width: 100%;
+  /* background-color: #a1c45a;  */
+  
+
 }
 
 .donation-meter {
@@ -589,3 +592,43 @@ html,body{
     z-index: 30;
   }
 
+  #about_us {
+    height: 100vh;
+    width: 100%;
+    background-color: #b73535;
+  }
+
+  #about_us_font {
+    position: absolute;
+    top: 220vh;
+    left: 5vw;
+    width: 47%;
+    height: 100%;
+    font-size: 2em;
+    text-align: justify;
+  }
+
+  #volunteer_registration {
+    border:2px solid black;
+    border-radius:3px;
+    text-decoration:none;
+    display:inline-block;
+    margin:20px;
+    left: 40.4vw;
+    text-align: justify;
+    position: absolute;
+    padding:5px 10px;
+    font-weight:600;
+    font-size:1.2em;
+    box-sizing:border-box;
+    top: 2vh;
+  }
+
+  #about_us_text {
+    color: whitesmoke;
+    position: absolute;
+    font-size: 3.4em;
+    font-weight: bolder;
+    top: 203vh;
+    left: 40vw;
+  }

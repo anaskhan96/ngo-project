@@ -235,6 +235,58 @@ div{
   0%   { transform: translateY(0); }
   100% { transform: translateY(-700px) rotate(600deg); }
 }
+
+
+.switch-field input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+}
+
+.switch-field label {
+  float: left;
+}
+
+.switch-field label {
+  display: inline-block;
+  width: 10vw;
+  background-color: #e4e4e4;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 18px;
+  font-weight: normal;
+  text-align: center;
+  text-shadow: none;
+  padding: 6px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition:    all 0.1s ease-in-out;
+  -ms-transition:     all 0.1s ease-in-out;
+  -o-transition:      all 0.1s ease-in-out;
+  transition:         all 0.1s ease-in-out;
+}
+
+.switch-field label:hover {
+	cursor: pointer;
+}
+
+.switch-field input:checked + label {
+  background-color: #A5DC86;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+  border-radius: 0 4px 4px 0;
+}
     </style>
 </head>
 <body>
@@ -244,11 +296,18 @@ div{
             
             <div class="form">
                 <input type="text" name="username" id="username" placeholder="Username">
-                <input type="password" name="password" id="password" placeholder="Password">
-                 <label style="position:absolute; ">Student</label><input type="radio" name="usertype" value="student" ><br>
-				 <label style="position:absolute; ">Teacher</label><input type="radio" name="usertype" value="teacher"><br>
-				<label style="position:absolute; ">Volunteer</label><input type="radio" name="usertype" value="volunteer"><br>
-				<label style="position:absolute; ">Management</label><input type="radio" name="usertype" value="management"> <br>
+				<input type="password" name="password" id="password" placeholder="Password">
+				<div class="switch-field">
+					<h2>Usertype</h2><br>
+						<input type="radio" id="switch_3_left" name="usertype" value="student" checked/>
+						<label for="switch_3_left">Student</label>
+						<input type="radio" id="switch_3_center1" name="usertype" value="teacher" />
+						<label for="switch_3_center1">Teacher</label>
+						<input type="radio" id="switch_3_center2" name="usertype" value="volunteer" />
+						<label for="switch_3_center2">Volunteer</label>
+							  <input type="radio" id="switch_3_right" name="usertype" value="management" />
+						<label for="switch_3_right">Management</label>
+					  </div> <br><br><br><br><br>
                 <button id="login-button">Login</button>
             </div>
         </div>

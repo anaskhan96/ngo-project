@@ -3,7 +3,7 @@ var questions = [
 {question:"What's your last name?"},
 {question:"Class preference?"},
 {question:"Subject preference?"},
-{question:"Prefered time?"},
+{question:"Prefered days?"},
 {question:"What's your email?", type: "text", pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/},
 {question:"Create your username", type: "text"},
 {question:"Create your password", type: "password"},
@@ -25,7 +25,7 @@ var onComplete = function() {
             time: questions[4].answer,
             email: questions[5].answer,
             username: questions[6].answer,
-            password: questions[7].answer
+            password: questions[8].answer
         })
     })
     .then((response) => response.json())
@@ -35,7 +35,9 @@ var onComplete = function() {
             window.location.href = '/volunteer_registration';
         }
         var h1 = document.createElement('h1')
+        h1.style.fontSize = "4em";
         h1.appendChild(document.createTextNode('Thank you ' + questions[0].answer + ' for joining us!'))
+        
         setTimeout(function() {
         register.parentElement.appendChild(h1)
         setTimeout(function() { h1.style.opacity = 1 }, 50)
@@ -58,8 +60,8 @@ var onComplete = function() {
     putQuestion()
 
     first_password = "hi"
-    first_password_position = 6
-    second_password_position = 7
+    first_password_position = 7
+    second_password_position = 8
 
     forwardButton.addEventListener('click', validate)
     inputField.addEventListener('keyup', function(e) {
@@ -193,8 +195,10 @@ var onComplete = function() {
             var warn = document.createElement('div')
             warn.innerHTML= "Passwords don't match!";
             warn.id = "warning"
+            warn.style.fontSize = "1.5em";
+            warn.style.fontWeight = "bold";
             warn.style.backgroundColor = "black";
-            warn.style.width = "20vw";
+            warn.style.width = "22vw";
             warn.style.height = "5vh";
             warn.style.position = "absolute";
             warn.style.color = "white";
@@ -202,7 +206,7 @@ var onComplete = function() {
             warn.style.display = "block";
             warn.style.top = "75vh";
             warn.style.borderRadius =  "15px";
-            warn.style.opacity = 0.6;// "position: absolute; font-color: black; z-index= 999; opacity=1; display=block;"
+            warn.style.opacity = 0.7;// "position: absolute; font-color: black; z-index= 999; opacity=1; display=block;"
             center_div = document.getElementsByClassName('center')[0];
             center_div.appendChild(warn);
             setTimeout(function() { warn.style.opacity = 0 }, 2500);
