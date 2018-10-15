@@ -19,7 +19,7 @@ volunteerRegRouter.post('/', (req, res) => {
 		password: req.body.password,
 		classPref: req.body.class,
 		subjectPref: req.body.subject,
-		timePref: req.body.timePref
+		daysPref: req.body.days
 	});
 	volunteer.save(function(err, result) {
 		if (err) res.json({

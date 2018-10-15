@@ -30,7 +30,7 @@ const volunteerSchema = mongoose.Schema({
 		type: String,
 		default: "any"
 	},
-	timePref: {
+	daysPref: {
 		type: String,
 		default: "any"
 	}

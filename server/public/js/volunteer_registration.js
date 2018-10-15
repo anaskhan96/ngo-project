@@ -3,7 +3,7 @@ var questions = [
 {question:"What's your last name?"},
 {question:"Class preference?"},
 {question:"Subject preference?"},
-{question:"Prefered days?"},
+{question:"Preferred days?"},
 {question:"What's your email?", type: "text", pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/},
 {question:"Create your username", type: "text"},
 {question:"Create your password", type: "password"},
@@ -22,7 +22,7 @@ var onComplete = function() {
             name: questions[0].answer+' '+questions[1].answer,
             class: questions[2].answer,
             subject: questions[3].answer,
-            time: questions[4].answer,
+            days: questions[4].answer,
             email: questions[5].answer,
             username: questions[6].answer,
             password: questions[8].answer
