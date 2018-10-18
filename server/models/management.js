@@ -25,4 +25,10 @@ const managementSchema = mongoose.Schema({
 	timestamps: true
 });
 
+managementSchema.pre('save', function(next) {
+	let derivedKey = auth.generatePassword(this.password);
+	this.password = derivedKey;
+	next();
+});
+
 module.exports = mongoose.model('management', managementSchema, 'management');

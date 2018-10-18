@@ -25,4 +25,10 @@ const studentSchema = mongoose.Schema({
 	timestamps: true
 });
 
+studentSchema.pre('save', function(next) {
+	let derivedKey = auth.generatePassword(this.password);
+	this.password = derivedKey;
+	next();
+});
+
 module.exports = mongoose.model('student', studentSchema, 'student');
