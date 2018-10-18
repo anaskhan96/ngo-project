@@ -32,6 +32,8 @@ const donationsSchema = mongoose.Schema({
 	comments: {
 		type: String
 	}
+}, {
+	timestamps: true
 });
 
 function isMonetary() {

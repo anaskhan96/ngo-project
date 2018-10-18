@@ -34,9 +34,11 @@ const volunteerSchema = mongoose.Schema({
 		type: String,
 		default: "any"
 	}
+}, {
+	timestamps: true
 });
 
-volunteerSchema.pre('save', function (next){
+volunteerSchema.pre('save', function(next) {
 	let derivedKey = auth.generatePassword(this.password);
 	this.password = derivedKey;
 	next();

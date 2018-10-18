@@ -20,7 +20,9 @@ const teacherSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	},
+	}
+}, {
+	timestamps: true
 });
 
 module.exports = mongoose.model('teacher', teacherSchema, 'teacher');
