@@ -9,11 +9,11 @@ const coursesSchema = mongoose.Schema({
 	},
 	link: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	description: {
-		type: String,
-		required: true
+		type: String
 	}
 }, {
 	timestamps: true
