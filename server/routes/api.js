@@ -22,6 +22,7 @@ let root = {
 
 apiRouter.use('/', (req, res, next) => {
 	console.log('GET /api', req.body);
+	// should authenticate user over here
 	next();
 });
 

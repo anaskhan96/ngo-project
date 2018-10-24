@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 const commentsSchema = mongoose.Schema({
 	name: {
-		type: String,
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'students',
 		required: true
 	},
 	course: {
