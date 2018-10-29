@@ -2,7 +2,7 @@
 
 ### Development Setup
 
-+ Pre-requisites to be installed - `node`, `npm`
++ Pre-requisites to be installed - `node`, `npm`, `mongodb`
 
 + Execute the following to setup the directory :-
 
