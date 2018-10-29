@@ -12,7 +12,7 @@ cd ngo-project
 npm install
 ```
 
-+ Include the db details in a `.env` file in the root directory in the following form :-
++ ~~Include the db details in a `.env` file in the root directory in the following form :-~~ (not needed for local storage, use `mongorestore` inside the folder 'dump' to set up local db)
 
 ```
 DB_USER=<username>
