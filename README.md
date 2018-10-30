@@ -1,5 +1,7 @@
 # ngo-project
 
+[![Build Status](https://travis-ci.org/anaskhan96/ngo-project.svg?branch=master)](https://travis-ci.org/anaskhan96/ngo-project)
+
 ### Development Setup
 
 + Pre-requisites to be installed - `node`, `npm`, `mongodb`
