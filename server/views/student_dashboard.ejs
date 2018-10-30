@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="styles/dashboard_template.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/dashboard_template.js"></script>
+</head>    
+<body>
+    <span class="bckg"></span>
+    <header>
+        <h1>Dashboard</h1>
+        <nav>
+            <ul>
+            <li>
+                <a href="javascript:void(0);" data-title="Assignments">Assignments</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" data-title="E-Learning">E-Learning</a>
+            </li>
+            <li>
+                <a href="javascript:void(0);" data-title="Profile">Profile</a>
+            </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="title">
+            <h2>Assignments</h2>
+            <a href="javascript:void(0);">Hello <%= user.username %>!</a>
+        </div>
+
+        <article class="larg">
+            <div>
+            <h3>Assignment 1 <span class="entypo-down-open"></span></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
+            </div>
+            <div>
+            <h3>Assignment 2 <span class="entypo-down-open"></span></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
+            </div>
+            <div>
+            <h3>Assignment 3 <span class="entypo-down-open"></span></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
+            </div>
+        </article>
+    </main>
+    </body>
+</html>

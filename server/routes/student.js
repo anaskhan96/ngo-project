@@ -10,7 +10,7 @@ studentRouter.use((req, res, next) => {
 
 studentRouter.get('/', (req, res) => {
 	console.log('GET /student');
-	res.render('studentHome.ejs', {
+	res.render('student_dashboard.ejs', {
 		user: req.user
 	});
 });

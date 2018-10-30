@@ -1,6 +1,6 @@
 $(document).ready( function() {
   
-  $('body').on("click", ".larg div h3", function(){
+  $('body').on("click", "main article div h3", function(){
     if ($(this).children('span').hasClass('close')) {
       $(this).children('span').removeClass('close');
     }
