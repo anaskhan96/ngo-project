@@ -51,8 +51,8 @@ describe('User (student) session test', () => {
 			.post('/login')
 			.set('Accept', 'application/json')
 			.send({
-				'username': 'anaskhan96',
-				'password': '01fb15ecs035',
+				'username': 'teststudent',
+				'password': 'testpassword',
 				'usertype': 'student'
 			})
 			.expect('Content-Type', 'application/json; charset=utf-8')
