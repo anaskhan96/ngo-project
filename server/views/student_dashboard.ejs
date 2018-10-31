@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="styles/dashboard_template.css" rel="stylesheet">
+    <link href="styles/student_dashboard.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script type="text/javascript" src="js/dashboard_template.js"></script>
+    <script type="text/javascript" src="js/student_dashboard.js"></script>
+    
 </head>    
 <body>
     <span class="bckg"></span>
@@ -12,13 +13,13 @@
         <nav>
             <ul>
             <li>
-                <a href="javascript:void(0);" data-title="Assignments">Assignments</a>
+                <a href="javascript:show_assignments();" data-title="Assignments">Assignments</a>
             </li>
             <li>
-                <a href="javascript:void(0);" data-title="E-Learning">E-Learning</a>
+                <a href="javascript:show_videos();" data-title="E-Learning">E-Learning</a>
             </li>
             <li>
-                <a href="javascript:void(0);" data-title="Profile">Profile</a>
+                <a href="javascript:show_profile();" data-title="Profile">Profile</a>
             </li>
             </ul>
         </nav>
@@ -29,7 +30,7 @@
             <a href="javascript:void(0);">Hello <%= user.username %>!</a>
         </div>
 
-        <article class="larg">
+        <article class="larg" id="assignments">
             <div>
             <h3>Assignment 1 <span class="entypo-down-open"></span></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
@@ -40,6 +41,36 @@
             </div>
             <div>
             <h3>Assignment 3 <span class="entypo-down-open"></span></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
+            </div>
+        </article>
+
+        <article class="larg" style="display:none;" id="videos">
+            <div>
+            <h3> Introduction to Fractions <span class="entypo-down-open"></span></h3>
+            <iframe width="640" height="480" src="https://www.youtube.com/embed/kZzoVCmUyKg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p> -->
+            <p><strong> Quiz: </strong>
+                </p>
+                <form>
+                        <input type="radio" name="gender" value="male" checked> Answer 1<br>
+                        <input type="radio" name="gender" value="female"> Answer 2<br>
+                        <input type="radio" name="gender" value="other"> Answer 3  
+                      </form> 
+            </div>
+            <div>
+            <h3>Adding and Subtracting Fractions <span class="entypo-down-open"></span></h3>
+            <iframe width="640" height="480" src="https://www.youtube.com/embed/52ZlXsFJULI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div>
+            <h3> Unlike Fractions <span class="entypo-down-open"></span></h3>
+            <iframe width="640" height="480" src="https://www.youtube.com/embed/bcCLKACsYJ0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </article>
+
+        <article class="larg" style="display: none;" id="profile">
+            <div>
+            <h3>Profile Details <span class="entypo-down-open"></span></h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus iste quia incidunt ad provident ullam quo assumenda expedita quae sapiente ipsa qui esse similique! Modi obcaecati natus sapiente quaerat omnis.</p>
             </div>
         </article>
