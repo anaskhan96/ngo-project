@@ -34,6 +34,28 @@ managementRouter.get('/details', (req, res) => {
 	});
 });
 
+managementRouter.get('/users/:usertype', (req, res) => {
+	console.log('GET /users');
+	if (req.params.usertype == 'management') return res.json({
+		success: false
+	});
+	let Usertype = require('../models/' + req.params.usertype);
+	Usertype.find().exec((err, results) => {
+		let users = [];
+		for (let i = 0; i < results.length; i++) {
+			users.push({
+				name: results[i].name,
+				username: results[i].username,
+				email: results[i].email
+			});
+		}
+		res.json({
+			success: true,
+			users: users
+		});
+	});
+});
+
 managementRouter.post('/addUser/:usertype', (req, res) => {
 	console.log('POST /management/add');
 	if (req.params.usertype != "student" && req.params.usertype != "teacher") return res.json({
@@ -47,7 +69,16 @@ managementRouter.post('/addUser/:usertype', (req, res) => {
 		password: req.body.password
 	});
 	if (req.params.usertype == 'teacher') {
-		// add students for the teacher
+		// req.body.students contain all the usernames
+		if (req.body.students) {
+			for (let i = 0; i < req.body.students.length; i++) {
+				Student.findOne({
+					username: req.body.students[i]
+				}, (err, student) => {
+					if (!err && student != null) user.students.push(student);
+				});
+			}
+		}
 	}
 	user.save((err, result) => {
 		if (err) return res.json({
