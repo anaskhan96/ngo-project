@@ -4,8 +4,6 @@
 	<title><%= video.name %></title>
 </head>
 <body>
-<script type="text/javascript">
-</script>
 <h3><%= video.name %></h3>
 <iframe width="640" height="480" src="<%= video.link %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <div id="comments">
@@ -13,5 +11,34 @@
 	<p><%= video.comments[i].username %>: <%= video.comments[i].text %></p>
 	<% } %>
 </div>
+<input type="text" name="comment" id="newComment">
+<button id="addComment">Add Comment</button>
+<script type="text/javascript">
+	let link = encodeURIComponent("<%= video.link %>");
+
+	function addComment() {
+		let newComment = document.getElementById("newComment");
+		fetch('/student/addComment/' + link, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				text: newComment.value
+			})
+		}).then((result) => result.json()).then((res) => {
+			if(!res.success) alert("Couldn't add comment");
+			else {
+				let p = document.createElement('p');
+				p.innerHTML = res.username + ': ' + res.text;
+				document.getElementById("comments").appendChild(p); 
+				newComment.value = "";
+			}
+		});
+	}
+
+	let addCommentBtn = document.getElementById('addComment');
+	addCommentBtn.addEventListener('click', addComment, false);
+</script>
 </body>
 </html>

@@ -86,4 +86,45 @@ studentRouter.get('/video/:link', (req, res) => {
 	});
 });
 
+studentRouter.post('/addComment/:link', (req, res) => {
+	console.log('POST /student/addComment');
+	let link = decodeURIComponent(req.params.link);
+	Student.findOne({
+		username: req.user.username
+	}, (err, student) => {
+		if (err || !student) return res.json({
+			success: false
+		});
+		let comment = {
+			student: student,
+			text: req.body.text
+		};
+		Videos.findOneAndUpdate({
+			link: link
+		}, {
+			$push: {
+				vidComments: comment
+			}
+		}, (err, updatedResult) => {
+			if (err) return res.json({
+				success: false
+			});
+			res.json({
+				success: true,
+				username: req.user.username,
+				text: req.body.text
+			});
+		});
+	});
+});
+
+studentRouter.post('/deleteComment/:link', (req, res) => {
+	console.log('POST /student/deleteComment');
+	let link = decodeURIComponent(req.params.link);
+	// too complex for now
+	res.json({
+		success: false
+	});
+});
+
 module.exports = studentRouter;
