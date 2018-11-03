@@ -73,7 +73,8 @@ teacherRouter.post('/addVideo', (req, res) => {
 		});
 		let video = new Videos({
 			name: req.body.name,
-			link: req.body.link
+			link: req.body.link,
+			postedBy: teacher
 		});
 		video.save((err, result) => {
 			if (err) throw err;
@@ -99,6 +100,19 @@ teacherRouter.post('/addVideo', (req, res) => {
 
 teacherRouter.post('/deleteVideo', (req, res) => {
 	console.log('POST /teacher/deleteVideo');
+	Videos.deleteOne({
+		link: req.body.link
+	}, (err) => {
+		if (err) {
+			console.log(err);
+			res.json({
+				success: false
+			});
+		}
+		res.json({
+			success: true
+		});
+	});
 });
 
 module.exports = teacherRouter;

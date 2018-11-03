@@ -27,4 +27,8 @@ const videosSchema = mongoose.Schema({
 	timestamps: true
 });
 
+videosSchema.post('remove', function(doc){
+	// remove the video's references from all student documents
+});
+
 module.exports = mongoose.model('videos', videosSchema, 'videos');
