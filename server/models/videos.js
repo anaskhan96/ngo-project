@@ -9,8 +9,7 @@ const videosSchema = mongoose.Schema({
 	},
 	link: {
 		type: String,
-		required: true,
-		unique: true
+		required: true
 	},
 	description: {
 		type: String
@@ -20,14 +19,19 @@ const videosSchema = mongoose.Schema({
 		ref: 'teacher'
 	},
 	comments: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'students'
+		student: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'students'
+		},
+		text: {
+			type: String
+		}
 	}]
 }, {
 	timestamps: true
 });
 
-videosSchema.post('remove', function(doc){
+videosSchema.post('remove', function(doc) {
 	// remove the video's references from all student documents
 });
 
