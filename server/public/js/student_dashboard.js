@@ -48,6 +48,7 @@ $(document).ready( function() {
     if(res.success){
       let detailsDiv = document.getElementById('detailsDiv');
       for(let key in res){
+        if (key == "success") continue;
         let p = document.createElement('p');
         p.innerHTML = key.charAt(0).toUpperCase() + key.slice(1) + ": " + res[key];
         detailsDiv.appendChild(p);
