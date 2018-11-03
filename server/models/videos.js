@@ -18,10 +18,10 @@ const videosSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'teacher'
 	},
-	comments: [{
+	vidComments: [{
 		student: {
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'students'
+			ref: 'student'
 		},
 		text: {
 			type: String

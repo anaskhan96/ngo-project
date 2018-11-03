@@ -61,4 +61,29 @@ studentRouter.get('/videos', (req, res) => {
 	});
 });
 
+studentRouter.get('/video/:link', (req, res) => {
+	console.log('GET /student/video');
+	let link = decodeURIComponent(req.params.link);
+	Videos.findOne({
+		link: link
+	}).populate('vidComments.student').exec((err, video) => {
+		if (err) throw err;
+		if (video == null) return res.render('404.ejs');
+		let comments = [];
+		for (let i = 0; i < video.vidComments.length; i++) {
+			comments.push({
+				username: video.vidComments[i].student.username,
+				text: video.vidComments[i].text
+			});
+		}
+		res.render('video.ejs', {
+			video: {
+				name: video.name,
+				link: video.link,
+				comments: comments
+			}
+		});
+	});
+});
+
 module.exports = studentRouter;

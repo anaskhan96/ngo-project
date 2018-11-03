@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= video.name %></title>
+</head>
+<body>
+<script type="text/javascript">
+</script>
+<h3><%= video.name %></h3>
+<iframe width="640" height="480" src="<%= video.link %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div id="comments">
+	<% for(var i = 0; i < video.comments.length; i++) { %>
+	<p><%= video.comments[i].username %>: <%= video.comments[i].text %></p>
+	<% } %>
+</div>
+</body>
+</html>
