@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+let auth = require('../middleware/auth');
 
 const studentSchema = mongoose.Schema({
 	name: {
@@ -20,7 +21,11 @@ const studentSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	}
+	},
+	videos: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'videos'
+	}]
 }, {
 	timestamps: true
 });

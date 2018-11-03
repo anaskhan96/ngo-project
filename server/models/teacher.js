@@ -20,7 +20,11 @@ const teacherSchema = mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	}
+	},
+	students: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'students'
+	}]
 }, {
 	timestamps: true
 });

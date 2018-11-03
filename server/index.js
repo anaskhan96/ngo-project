@@ -41,6 +41,29 @@ app.get('/', (req, res, next) => {
 for (let route in routes)
 	app.use('/' + route, routes[route]);
 
+/*app.get('/testVidAdd', (req, res) => {
+	let Videos = require('./models/videos');
+	let video = new Videos({
+		name: "What is GitHub?",
+		link: "https://youtu.be/embed/w3jLJU7DT5E"
+	});
+	video.save((err, result) => {
+		console.log(err);
+		console.log(result.name);
+	});
+	let Student = require('./models/student');
+	Student.findOneAndUpdate({
+		username: 'anaskhan96',
+	}, {
+		$push: {
+			videos: video
+		}
+	}, (err, result) => {
+		console.log(err);
+	});
+	res.send('done!');
+});*/
+
 app.get('/logout', (req, res) => {
 	res.clearCookie('ngotok');
 	res.redirect('/');
