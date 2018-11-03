@@ -35,4 +35,8 @@ teacherSchema.pre('save', function(next) {
 	next();
 });
 
+teacherSchema.post('deleteOne', function(doc) {
+	// need to remove videos posted by the teacher
+});
+
 module.exports = mongoose.model('teacher', teacherSchema, 'teacher');
