@@ -23,7 +23,7 @@ const teacherSchema = mongoose.Schema({
 	},
 	students: [{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'students'
+		ref: 'student'
 	}]
 }, {
 	timestamps: true
