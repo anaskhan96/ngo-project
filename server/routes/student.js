@@ -71,10 +71,12 @@ studentRouter.get('/video/:link', (req, res) => {
 		if (video == null) return res.render('404.ejs');
 		let comments = [];
 		for (let i = 0; i < video.vidComments.length; i++) {
-			comments.push({
-				username: video.vidComments[i].student.username,
-				text: video.vidComments[i].text
-			});
+			if (video.vidComments[i].student) {
+				comments.push({
+					username: video.vidComments[i].student.username,
+					text: video.vidComments[i].text
+				});
+			}
 		}
 		res.render('video.ejs', {
 			video: {
@@ -121,9 +123,25 @@ studentRouter.post('/addComment/:link', (req, res) => {
 studentRouter.post('/deleteComment/:link', (req, res) => {
 	console.log('POST /student/deleteComment');
 	let link = decodeURIComponent(req.params.link);
-	// too complex for now
-	res.json({
-		success: false
+	Videos.findOne({
+		link: link
+	}).populate('vidComments.student').exec((err, video) => {
+		for (let i = 0; i < video.vidComments.length; i++) {
+			if (video.vidComments[i].student && video.vidComments[i].student.username == req.user.username && video.vidComments[i].text == req.body.text) {
+				video.vidComments.splice(i, 1);
+				break;
+			}
+		}
+		video.save((err, result) => {
+			if (err) {
+				console.log(err);
+				res.json({
+					success: false
+				});
+			} else res.json({
+				success: true
+			});
+		});
 	});
 });
 
