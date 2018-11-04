@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>NGO Portal | Donate</title>
+</head>
+<body>
+<h3><center>Welcome to Donate!</center></h3>
+Name: <input type="text" name="name" id="name"><br>
+Email: <input type="email" name="email" id="email"><br>
+Mobile: <input type="text" name="mobile" id="mobile"><br>
+Amount: <input type="text" name="amount" id="amount"><br>
+<button id="initPayment">Initiate Payment</button>
+<div style="display: none">
+<form method='post' action='https://securegw-stage.paytm.in/theia/processTransaction' name='f1'></form>
+</div>
+<script type="text/javascript">
+	function initiatePayment() {
+		let name = document.getElementById('name').value;
+		let email = document.getElementById('email').value;
+		let mobile = document.getElementById('mobile').value;
+		let amount = document.getElementById('amount').value;
+		fetch('/donate', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				mobile: mobile,
+				amount: amount
+			})
+		}).then((result) => result.json()).then((res) => {
+			if(!res.success) alert('Payment initiation failed');
+			else {
+				let details = res.details;
+				let f1 = document.getElementsByName('f1')[0];
+				for(let i in details){
+					f1.innerHTML += "<input type='hidden' name='" + i + "' value='" + details[i] + "'>"	
+				}
+				f1.submit();
+			}
+		});
+	}
+
+	let initPaymentBtn = document.getElementById('initPayment');
+	initPaymentBtn.addEventListener('click', initiatePayment, false);
+</script>
+</body>
+</html>

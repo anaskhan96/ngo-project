@@ -29,6 +29,10 @@ const donationsSchema = mongoose.Schema({
 		type: Number,
 		required: isMonetary
 	},
+	transactionDetails: {
+		type: String,
+		required: isMonetary
+	},
 	comments: {
 		type: String
 	}
