@@ -9,7 +9,8 @@ const videosSchema = mongoose.Schema({
 	},
 	link: {
 		type: String,
-		required: true
+		required: true,
+		unique: true
 	},
 	description: {
 		type: String

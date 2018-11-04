@@ -77,7 +77,12 @@ teacherRouter.post('/addVideo', (req, res) => {
 			postedBy: teacher
 		});
 		video.save((err, result) => {
-			if (err) throw err;
+			if (err) {
+				console.log(err);
+				return res.json({
+					success: false
+				});
+			}
 			for (let i = 0; i < teacher.students.length; i++) {
 				Student.findOneAndUpdate({
 					username: teacher.students[i].username
