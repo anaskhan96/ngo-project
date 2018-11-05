@@ -13,12 +13,33 @@ donateRouter.get('/', (req, res) => {
 
 donateRouter.post('/', (req, res) => {
 	console.log('POST /donate');
-	initiatePayment(req.body, function(success, details) {
-		res.json({
-			success: success,
-			details: details
+	if (!req.body.isMonetary) {
+		let donation = new Donations({
+			name: req.body.name,
+			email: req.body.email,
+			mobile: req.body.mobile,
+			paymentMode: 'NonMonetary',
+			comments: req.body.comments
 		});
-	});
+		donation.save((err, result) => {
+			if (err) {
+				console.log(err);
+				return res.render('postDonation.ejs', {
+					success: false
+				});
+			}
+			res.render('postDonation.ejs', {
+				success: true
+			});
+		});
+	} else {
+		initiatePayment(req.body, function(success, details) {
+			res.json({
+				success: success,
+				details: details
+			});
+		});
+	}
 });
 
 function initiatePayment(customer, callback) {
@@ -44,7 +65,7 @@ function initiatePayment(customer, callback) {
 			return callback(false, null);
 		}
 		details.CHECKSUMHASH = generatedChecksum;
-		let donations = new Donations({
+		let donation = new Donations({
 			name: customer.name,
 			email: customer.email,
 			mobile: customer.mobile,
@@ -55,7 +76,7 @@ function initiatePayment(customer, callback) {
 				CHECKSUMHASH: generatedChecksum
 			}
 		});
-		donations.save((err, res) => {
+		donation.save((err, res) => {
 			if (err) {
 				console.log(err);
 				return callback(false, null);

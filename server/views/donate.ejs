@@ -28,7 +28,8 @@ Amount: <input type="text" name="amount" id="amount"><br>
 				name: name,
 				email: email,
 				mobile: mobile,
-				amount: amount
+				amount: amount,
+				isMonetary: true
 			})
 		}).then((result) => result.json()).then((res) => {
 			if(!res.success) alert('Payment initiation failed');
