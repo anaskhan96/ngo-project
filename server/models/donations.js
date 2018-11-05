@@ -2,15 +2,6 @@
 
 const mongoose = require('mongoose');
 
-const paymentTypes = Object.freeze({
-	NonMonetary: 0,
-	Paytm: 1,
-	UPI: 2,
-	CreditCard: 3,
-	DebitCard: 4,
-	NetBanking: 5
-});
-
 const donationsSchema = mongoose.Schema({
 	name: {
 		type: String
@@ -21,17 +12,25 @@ const donationsSchema = mongoose.Schema({
 	mobile: {
 		type: String
 	},
-	paymentType: {
-		type: paymentTypes,
-		required: true
+	paymentMode: {
+		type: String
 	},
 	amountDonated: {
-		type: Number,
-		required: isMonetary
+		type: Number
 	},
 	transactionDetails: {
-		type: String,
-		required: isMonetary
+		ORDERID: {
+			type: String
+		},
+		TXNID: {
+			type: String
+		},
+		STATUS: {
+			type: String
+		},
+		CHECKSUMHASH: {
+			type: String
+		}
 	},
 	comments: {
 		type: String
@@ -39,9 +38,5 @@ const donationsSchema = mongoose.Schema({
 }, {
 	timestamps: true
 });
-
-function isMonetary() {
-	return this.paymentType != paymentTypes.NonMonetary;
-}
 
 module.exports = mongoose.model('donations', donationsSchema, 'donations');

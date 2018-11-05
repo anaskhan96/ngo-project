@@ -1,9 +1,10 @@
 'use strict';
 
+require('dotenv').config();
 let express = require('express');
 let donateRouter = express.Router();
 let checksum = require('../middleware/checksum/checksum');
-require('dotenv').config();
+let Donations = require('../models/donations');
 
 donateRouter.get('/', (req, res) => {
 	console.log('GET /donate');
@@ -43,14 +44,54 @@ function initiatePayment(customer, callback) {
 			return callback(false, null);
 		}
 		details.CHECKSUMHASH = generatedChecksum;
-		callback(true, details);
+		let donations = new Donations({
+			name: customer.name,
+			email: customer.email,
+			mobile: customer.mobile,
+			amountDonated: amount,
+			transactionDetails: {
+				ORDERID: orderID,
+				STATUS: 'PENDING',
+				CHECKSUMHASH: generatedChecksum
+			}
+		});
+		donations.save((err, res) => {
+			if (err) {
+				console.log(err);
+				return callback(false, null);
+			}
+			callback(true, details);
+		});
 	});
 }
 
 donateRouter.post('/payment', (req, res) => {
 	console.log('POST /donate/payment');
-	console.log(req.body);
-	res.send('done');
+	Donations.findOne({
+		"transactionDetails.ORDERID": req.body.ORDERID
+	}, (err, donation) => {
+		if (err) throw err;
+		/*if (donation.transactionDetails.CHECKSUMHASH != req.body.CHECKSUMHASH) {
+			console.log(donation);
+			return res.render('postDonation.ejs', {
+				success: false
+			});
+		}*/
+		donation.transactionDetails.TXNID = req.body.TXNID;
+		donation.transactionDetails.STATUS = req.body.STATUS;
+		donation.paymentMode = req.body.PAYMENTMODE;
+		donation.save((err, result) => {
+			if (err) {
+				console.log(err);
+				return res.render('postDonation.ejs', {
+					success: false
+				});
+			}
+			res.render('postDonation.ejs', {
+				success: true
+			});
+		});
+	});
 });
 
 module.exports = donateRouter;
