@@ -4,7 +4,7 @@ let express = require('express');
 let auth = require('../middleware/auth');
 let managementRouter = express.Router();
 let Management = require('../models/management');
-let Schedule = require('../models/Schedule');
+let Schedule = require('../models/schedule');
 
 managementRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'management');
