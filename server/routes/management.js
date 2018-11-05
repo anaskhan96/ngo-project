@@ -4,6 +4,7 @@ let express = require('express');
 let auth = require('../middleware/auth');
 let managementRouter = express.Router();
 let Management = require('../models/management');
+let Schedule = require('../models/Schedule');
 
 managementRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'management');
@@ -108,6 +109,14 @@ managementRouter.post('/deleteUser/:usertype', (req, res) => {
 		res.json({
 			success: true
 		});
+	});
+});
+
+managementRouter.get('/schedules', (req, res) => {
+	console.log('GET /management/schedules');
+	Schedule.find().exec((err, results) => {
+		if (err) throw err;
+		res.json(results);
 	});
 });
 
