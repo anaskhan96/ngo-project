@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 
 const scheduleSchema = mongoose.Schema({
 	name: {
-		type: String
+		type: String,
+		unique: true
 	},
 	workDescription: {
 		type: String

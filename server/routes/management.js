@@ -120,4 +120,39 @@ managementRouter.get('/schedules', (req, res) => {
 	});
 });
 
+managementRouter.post('/addSchedule', (req, res) => {
+	console.log('POST /addSchedule');
+	let schedule = new Schedule(req.body);
+	schedule.save((err, result) => {
+		if (err) {
+			console.log(err);
+			return res.json({
+				success: false,
+				errorMsg: err.toString()
+			});
+		}
+		res.json({
+			success: true
+		});
+	});
+});
+
+managementRouter.post('/deleteSchedule', (req, res) => {
+	console.log('POST /deleteSchedule');
+	Schedule.deleteOne({
+		name: req.body.name
+	}, (err) => {
+		if (err) {
+			console.log(err);
+			return res.json({
+				success: false,
+				errorMsg: err.toString()
+			});
+		}
+		res.json({
+			success: true
+		});
+	});
+});
+
 module.exports = managementRouter;
