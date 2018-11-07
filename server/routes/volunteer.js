@@ -3,6 +3,7 @@
 let express = require('express');
 let auth = require('../middleware/auth');
 let volunteerRouter = express.Router();
+let Volunteer = require('../models/volunteer');
 
 // authentication middleware
 volunteerRouter.use((req, res, next) => {
@@ -17,6 +18,28 @@ volunteerRouter.get('/', (req, res) => {
 	console.log('GET /volunteer');
 	res.render('volunteerHome.ejs', {
 		user: req.user
+	});
+});
+
+/*
+	GET /volunteer/details
+	response: json { success (boolean), name, email, username }
+*/
+volunteerRouter.get('/details', (req, res) => {
+	console.log('GET /volunteer/details');
+	Volunteer.findOne({
+		username: req.user.username
+	}, (err, volunteer) => {
+		if (err) throw err;
+		if (volunteer == null) return res.json({
+			success: false
+		});
+		res.json({
+			success: true,
+			name: volunteer.name,
+			email: volunteer.email,
+			username: volunteer.username
+		});
 	});
 });
 
