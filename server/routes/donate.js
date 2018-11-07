@@ -6,11 +6,20 @@ let donateRouter = express.Router();
 let checksum = require('../middleware/checksum/checksum');
 let Donations = require('../models/donations');
 
+/*
+	GET /donate
+	response: view
+*/
 donateRouter.get('/', (req, res) => {
 	console.log('GET /donate');
 	res.render('donate.ejs');
 });
 
+/*
+	POST /donate
+	request body: json { name, email, mobile, amount (if monetary), comments (if non-monetary) }
+	response: view with variables { success (boolean) }
+*/
 donateRouter.post('/', (req, res) => {
 	console.log('POST /donate');
 	if (!req.body.isMonetary) {
@@ -86,6 +95,11 @@ function initiatePayment(customer, callback) {
 	});
 }
 
+/*
+	POST /donate/payment, callback function from PayTM's website
+	request body: transaction details in a json
+	response: same as POST /donate
+*/
 donateRouter.post('/payment', (req, res) => {
 	console.log('POST /donate/payment');
 	Donations.findOne({

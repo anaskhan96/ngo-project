@@ -7,11 +7,20 @@ let loginRouter = express.Router();
 // for demo purposes
 let loginTriesLimit = 0;
 
+/*
+	GET /login
+	response: view
+*/
 loginRouter.get('/', (req, res) => {
 	console.log('GET /login');
 	res.render('login.ejs');
 });
 
+/*
+	POST /login
+	request body: json { username, password, usertype }
+	response: set-cookie and json { success (boolean) }
+*/
 loginRouter.post('/', (req, res) => {
 	console.log('POST /login');
 	// demo purposes

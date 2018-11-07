@@ -6,10 +6,15 @@ let managementRouter = express.Router();
 let Management = require('../models/management');
 let Schedule = require('../models/schedule');
 
+// authentication middleware
 managementRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'management');
 });
 
+/*
+	GET /management
+	response: view with variables { user (username) }
+*/
 managementRouter.get('/', (req, res) => {
 	console.log('GET /management');
 	res.render('managementHome.ejs', {
@@ -17,6 +22,10 @@ managementRouter.get('/', (req, res) => {
 	});
 });
 
+/*
+	GET /management/details
+	response: json { success (boolean), name, email, username }
+*/
 managementRouter.get('/details', (req, res) => {
 	console.log('GET /management/details');
 	Management.findOne({
@@ -35,8 +44,12 @@ managementRouter.get('/details', (req, res) => {
 	});
 });
 
+/*
+	GET /management/users/student, /management/users/teacher
+	response: json { success (boolean), users { name, email, username } }
+*/
 managementRouter.get('/users/:usertype', (req, res) => {
-	console.log('GET /users');
+	console.log('GET /management/users');
 	if (req.params.usertype == 'management') return res.json({
 		success: false
 	});
@@ -57,8 +70,13 @@ managementRouter.get('/users/:usertype', (req, res) => {
 	});
 });
 
+/*
+	POST /addUser/student, /addUser/teacher
+	request body: json { name, email, username, password, students {} (for teachers) }
+	response: json { success (boolean) }
+*/
 managementRouter.post('/addUser/:usertype', (req, res) => {
-	console.log('POST /management/add');
+	console.log('POST /management/addUser');
 	if (req.params.usertype != "student" && req.params.usertype != "teacher") return res.json({
 		success: false
 	});
@@ -93,6 +111,11 @@ managementRouter.post('/addUser/:usertype', (req, res) => {
 	});
 });
 
+/*
+	POST /management/deleteUser/student, /management/deleteUser/teacher
+	request body: json { username }
+	response: json { success (boolean) }
+*/
 managementRouter.post('/deleteUser/:usertype', (req, res) => {
 	console.log('POST /management/delete');
 	if (req.params.usertype != "student" && req.params.usertype != "teacher") return res.json({
@@ -112,6 +135,10 @@ managementRouter.post('/deleteUser/:usertype', (req, res) => {
 	});
 });
 
+/*
+	GET /management/schedules
+	response: json { name, workDescription, class, days, subject }
+*/
 managementRouter.get('/schedules', (req, res) => {
 	console.log('GET /management/schedules');
 	Schedule.find().exec((err, results) => {
@@ -120,8 +147,13 @@ managementRouter.get('/schedules', (req, res) => {
 	});
 });
 
+/*
+	POST /management/addSchedule
+	request body: json { name, workDescription, class, days, subject }
+	response: json { success (boolean) }
+*/
 managementRouter.post('/addSchedule', (req, res) => {
-	console.log('POST /addSchedule');
+	console.log('POST /management/addSchedule');
 	let schedule = new Schedule(req.body);
 	schedule.save((err, result) => {
 		if (err) {
@@ -137,8 +169,13 @@ managementRouter.post('/addSchedule', (req, res) => {
 	});
 });
 
+/*
+	POST /management/deleteSchedule
+	request body: json { name }
+	response: json { success (boolean) }
+*/
 managementRouter.post('/deleteSchedule', (req, res) => {
-	console.log('POST /deleteSchedule');
+	console.log('POST /management/deleteSchedule');
 	Schedule.deleteOne({
 		name: req.body.name
 	}, (err) => {

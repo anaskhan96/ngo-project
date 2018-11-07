@@ -7,10 +7,15 @@ let Teacher = require('../models/teacher');
 let Videos = require('../models/videos');
 let Student = require('../models/student');
 
+// authentication middleware
 teacherRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'teacher');
 });
 
+/*
+	GET /teacher
+	response: view with variables { user (username) }
+*/
 teacherRouter.get('/', (req, res) => {
 	console.log('GET /teacher');
 	res.render('teacher_dashboard.ejs', {
@@ -18,6 +23,10 @@ teacherRouter.get('/', (req, res) => {
 	});
 });
 
+/*
+	GET /teacher/details
+	response: json { success (boolean), name, email, username }
+*/
 teacherRouter.get('/details', (req, res) => {
 	console.log('GET /teacher/details');
 	Teacher.findOne({
@@ -36,6 +45,10 @@ teacherRouter.get('/details', (req, res) => {
 	});
 });
 
+/*
+	GET /teacher/videos
+	response: json { success (boolean), videos { name, link } }
+*/
 teacherRouter.get('/videos', (req, res) => {
 	console.log('GET /teacher/videos');
 	Videos.find().populate({
@@ -62,6 +75,11 @@ teacherRouter.get('/videos', (req, res) => {
 	});
 });
 
+/*
+	POST /teacher/addVideo
+	request body: json { name, link }
+	response: json { success (boolean), name, link }
+*/
 teacherRouter.post('/addVideo', (req, res) => {
 	console.log('POST /teacher/addVideo');
 	Teacher.findOne({
@@ -103,6 +121,11 @@ teacherRouter.post('/addVideo', (req, res) => {
 	});
 });
 
+/*
+	POST /teacher/deleteVideo
+	request body: json { link }
+	response: json { success (boolean) }
+*/
 teacherRouter.post('/deleteVideo', (req, res) => {
 	console.log('POST /teacher/deleteVideo');
 	Videos.deleteOne({

@@ -6,10 +6,15 @@ let studentRouter = express.Router();
 let Student = require('../models/student');
 let Videos = require('../models/videos');
 
+// authentication middleware
 studentRouter.use((req, res, next) => {
 	auth.authenticate(req, res, next, 'student');
 });
 
+/*
+	GET /student
+	response: view with variables { user (username) }
+*/
 studentRouter.get('/', (req, res) => {
 	console.log('GET /student');
 	res.render('student_dashboard.ejs', {
@@ -17,6 +22,10 @@ studentRouter.get('/', (req, res) => {
 	});
 });
 
+/*
+	GET /student/details
+	response: json { success (boolean), name, email, username }
+*/
 studentRouter.get('/details', (req, res) => {
 	console.log('GET /student/details');
 	Student.findOne({
@@ -35,6 +44,10 @@ studentRouter.get('/details', (req, res) => {
 	});
 });
 
+/*
+	GET /student/videos
+	response: json { success (boolean), videos { name, link } }
+*/
 studentRouter.get('/videos', (req, res) => {
 	console.log('GET /student/videos');
 	Student.findOne({
@@ -61,6 +74,10 @@ studentRouter.get('/videos', (req, res) => {
 	});
 });
 
+/*
+	GET /student/video/<linkOfVideo>
+	response: view with variables { video { name, link, comments } }
+*/
 studentRouter.get('/video/:link', (req, res) => {
 	console.log('GET /student/video');
 	let link = decodeURIComponent(req.params.link);
@@ -88,6 +105,11 @@ studentRouter.get('/video/:link', (req, res) => {
 	});
 });
 
+/*
+	POST /student/addComment/<linkOfVideo>
+	request body: json { text }
+	response: json { success (boolean), username, text }
+*/
 studentRouter.post('/addComment/:link', (req, res) => {
 	console.log('POST /student/addComment');
 	let link = decodeURIComponent(req.params.link);
@@ -120,6 +142,11 @@ studentRouter.post('/addComment/:link', (req, res) => {
 	});
 });
 
+/*
+	POST /student/deleteComment/<linkOfVideo>
+	request body: json { text }
+	response: json { success (boolean) }
+*/
 studentRouter.post('/deleteComment/:link', (req, res) => {
 	console.log('POST /student/deleteComment');
 	let link = decodeURIComponent(req.params.link);
