@@ -13,7 +13,7 @@ teacherRouter.use((req, res, next) => {
 
 teacherRouter.get('/', (req, res) => {
 	console.log('GET /teacher');
-	res.render('teacherHome.ejs', {
+	res.render('teacher_dashboard.ejs', {
 		user: req.user
 	});
 });
