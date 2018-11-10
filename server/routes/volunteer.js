@@ -47,15 +47,31 @@ volunteerRouter.get('/details', (req, res) => {
 });
 
 /*
-	GET /volunteer/schedules
+	GET /volunteer/schedules/all, /volunteer/schedules/preferred
 	response: json { name, workDescription, class, days, subject }
 */
-volunteerRouter.get('/schedules/', (req, res) => {
+volunteerRouter.get('/schedules/:type', (req, res) => {
 	console.log('GET /volunteer/schedules');
-	Schedule.find().exec((err, results) => {
-		if (err) throw err;
-		res.json(results);
-	});
+	if (req.params.type == "all") {
+		Schedule.find().exec((err, results) => {
+			if (err) throw err;
+			res.json(results);
+		});
+	} else if (req.params.type == "preferred") {
+		Volunteer.findOne({
+			username: req.user.username
+		}, (err, volunteer) => {
+			if (err || !volunteer) throw err;
+			Schedule.find({
+				class: volunteer.classPref,
+				subject: volunteer.subjectPref,
+				days: volunteer.daysPref
+			}, (err, schedules) => {
+				if (err) throw err;
+				res.json(schedules);
+			});
+		});
+	}
 });
 
 module.exports = volunteerRouter;
