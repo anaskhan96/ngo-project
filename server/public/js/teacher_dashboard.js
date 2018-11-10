@@ -111,9 +111,11 @@ function submit_video()
       delBtn.addEventListener('click',delete_video,false);
       div.appendChild(delBtn);
       videosArticle.appendChild(div);
+      swal("Added!", res.name+" has been successfully added.", "success");
     }
     else {
       videosArticle.innerHTML += "<div><h3>No videos to show</h3></div>";
+      swal("Failed!", "The video couldn't be added, kindly contact management.", "error");
     }
   });
 }
@@ -130,14 +132,14 @@ function delete_video(e)
    headers: {"Content-Type" : "application/json;charset=utf-8"}
   }).then((result) => result.json()).then((res) => {
     console.log(res);
-    if(res.success)
-      console.log("Video Deleted Succesfully");
+    if(res.success) {
+      let divToDel = e.target.parentElement;
+      divToDel.parentElement.removeChild(divToDel);
+      swal("Deleted!", "Video deleted successfully", "success");
+    } else {
+      swal("Failed!", "Video could not be deleted, contact management", "error");
+    }
   });
-
-  let divToDel = e.target.parentElement;
-  divToDel.parentElement.removeChild(divToDel);
-
-
 }
 
 function add_videos() {
