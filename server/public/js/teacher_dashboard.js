@@ -51,7 +51,8 @@ $(document).ready( function() {
         div.appendChild(iframe);
         let delBtn = document.createElement("button");
         delBtn.id = "delVideo";
-        delBtn.innerHTML="DELETE THIS VIDEO";
+        delBtn.className = "delbtn";
+        delBtn.innerHTML="DELETE VIDEO";
         delBtn.addEventListener('click',delete_video,false);
         div.appendChild(delBtn);
         videosArticle.appendChild(div);
@@ -62,27 +63,7 @@ $(document).ready( function() {
     }
   });
 
- /* fetch('/teacher/addVideo',{
-    method : 'POST',
-    body: JSON.stringify(
-    {
-      name : document.getElementById('video_name'),
-      link : document.getElementById('video_url')
-    }),
-    headers: {"Content-type" : "application/json;charset=utf-8"}
-  }).then((result) => result.json()).then((res) => {
-    console.log(res);
-    if(res.success)
-    {
-      //Show the Succesfully added Logo
-      let confirmation = document.createElement(h2);
-      confirmation.innerHTML = "Video Updated Succesfully";
-      confirmation.id = "added_video";
-      let confirmdiv = document.getElementById("added_video");
-      confirmdiv.appendChild(confirmation);
 
-    }
-  });*/
 
 let addVideoBtn = document.getElementById('addVideo');
 addVideoBtn.addEventListener('click', submit_video, false);
@@ -125,13 +106,14 @@ function submit_video()
       div.appendChild(iframe);
       let delBtn = document.createElement("button");
       delBtn.id = "delVideo";
-      delBtn.innerHTML="DELETE THIS VIDEO";
+      delBtn.className = "delbtn";
+      delBtn.innerHTML="DELETE VIDEO";
       delBtn.addEventListener('click',delete_video,false);
       div.appendChild(delBtn);
       videosArticle.appendChild(div);
     }
     else {
-      console.log('Failed!');
+      videosArticle.innerHTML += "<div><h3>No videos to show</h3></div>";
     }
   });
 }
