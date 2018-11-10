@@ -38,8 +38,23 @@ volunteerRouter.get('/details', (req, res) => {
 			success: true,
 			name: volunteer.name,
 			email: volunteer.email,
-			username: volunteer.username
+			username: volunteer.username,
+			classPref: volunteer.classPref,
+			subjectPref: volunteer.subjectPref,
+			daysPref: volunteer.daysPref
 		});
+	});
+});
+
+/*
+	GET /volunteer/schedules
+	response: json { name, workDescription, class, days, subject }
+*/
+volunteerRouter.get('/schedules/', (req, res) => {
+	console.log('GET /volunteer/schedules');
+	Schedule.find().exec((err, results) => {
+		if (err) throw err;
+		res.json(results);
 	});
 });
 
