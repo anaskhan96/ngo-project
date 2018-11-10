@@ -64,8 +64,8 @@ teacherRouter.get('/videos', (req, res) => {
 		let vids = [];
 		for (let i = 0; i < videos.length; i++) {
 			vids.push({
-				name: videos.name,
-				link: videos.link
+				name: videos[i].name,
+				link: videos[i].link
 			});
 		}
 		res.json({
