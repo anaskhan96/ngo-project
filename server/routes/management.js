@@ -137,13 +137,20 @@ managementRouter.post('/deleteUser/:usertype', (req, res) => {
 
 /*
 	GET /management/schedules
-	response: json { name, workDescription, class, days, subject }
+	response: json { name, workDescription, class, days, subject, volunteersOpted (array of volunteer usernames) }
 */
 managementRouter.get('/schedules', (req, res) => {
 	console.log('GET /management/schedules');
-	Schedule.find().exec((err, results) => {
+	Schedule.find().populate('volunteersOpted').exec((err, schedules) => {
 		if (err) throw err;
-		res.json(results);
+		let finalSchedules = [];
+		schedules.forEach((schedule) => {
+			let sched = schedule.toObject();
+			for (let i = 0; i < sched.volunteersOpted.length; i++)
+				sched.volunteersOpted[i] = sched.volunteersOpted[i].username;
+			finalSchedules.push(sched);
+		});
+		res.json(finalSchedules);
 	});
 });
 
