@@ -71,7 +71,7 @@ managementRouter.get('/users/:usertype', (req, res) => {
 });
 
 /*
-	POST /addUser/student, /addUser/teacher
+	POST /management/addUser/student, /management/addUser/teacher
 	request body: json { name, email, username, password, students {} (for teachers) }
 	response: json { success (boolean) }
 */
