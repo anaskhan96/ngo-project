@@ -109,6 +109,7 @@ volunteerRouter.get('/schedules/:type', (req, res) => {
 	response: json { success (boolean) }
 */
 volunteerRouter.post('/schedule/:option', (req, res) => {
+	console.log('POST /volunteer/schedule');
 	let option = req.params.option;
 	if (option == 'opt') {
 		Volunteer.findOne({
