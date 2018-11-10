@@ -103,4 +103,63 @@ volunteerRouter.get('/schedules/:type', (req, res) => {
 	}
 });
 
+/*
+	POST /volunteer/schedule/opt, /volunteer/schedule/deopt
+	request body: json { name }
+	response: json { success (boolean) }
+*/
+volunteerRouter.post('/schedule/:option', (req, res) => {
+	let option = req.params.option;
+	if (option == 'opt') {
+		Volunteer.findOne({
+			username: req.user.username
+		}, (err, volunteer) => {
+			if (err) throw err;
+			Schedule.findOneAndUpdate({
+				name: req.body.name
+			}, {
+				$push: {
+					volunteersOpted: volunteer
+				}
+			}, (err, updatedSchedule) => {
+				if (err) {
+					console.log(err);
+					return res.json({
+						success: false
+					});
+				}
+				res.json({
+					success: true
+				});
+			});
+		});
+	} else if (option == 'deopt') {
+		Schedule.findOne({
+			name: req.body.name
+		}).populate('volunteersOpted').exec((err, schedule) => {
+			for (let i = 0; i < schedule.volunteersOpted.length; i++) {
+				if (schedule.volunteersOpted[i].username == req.user.username) {
+					schedule.volunteersOpted.splice(i, 1);
+					break;
+				}
+			}
+			schedule.save((err, result) => {
+				if (err) {
+					console.log(err);
+					return res.json({
+						success: false
+					});
+				}
+				res.json({
+					success: true
+				});
+			});
+		});
+	} else {
+		res.json({
+			success: false
+		});
+	}
+});
+
 module.exports = volunteerRouter;
