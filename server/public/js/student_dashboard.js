@@ -35,6 +35,10 @@ $(document).ready( function() {
         iframe.setAttribute('allowfullscreen', '');
         iframe.setAttribute('src', vids[i].link);
         div.appendChild(iframe);
+        let a = document.createElement('a');
+        a.setAttribute('href', '/student/video/' + encodeURIComponent(vids[i].link));
+        a.innerHTML = 'Open this video with discussions';
+        div.appendChild(a);
         videosArticle.appendChild(div);
       }
     }

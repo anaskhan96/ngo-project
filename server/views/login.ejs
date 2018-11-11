@@ -2,6 +2,7 @@
 <head>
     <title>NGO Portal | Login</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
         @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
 
@@ -355,10 +356,13 @@ div{
 			return response.json();
 		}).then(function (res){
 			if(!res.success){
-				alert('Username or password provided is incorrect!');
+				swal("Failed!", "Are you sure the credentials are correct? Try again", "error");
 			}
 			else{
-				window.location.href = '/';
+				swal("Successful!", "Redirecting to dashboard...", "success");
+				setTimeout(() => {
+					window.location.href = '/';
+				}, 2000);
 			}
 		}).catch(function (error){
 			console.log(error);
