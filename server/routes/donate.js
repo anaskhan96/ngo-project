@@ -53,8 +53,8 @@ donateRouter.post('/', (req, res) => {
 });
 
 function initiatePayment(customer, callback) {
-	let orderID = 'order' + Math.floor(Math.random() * 1000000).toString();
-	let customerID = 'cust' + Math.floor(Math.random() * 1000000).toString();
+	let orderID = 'order' + Date.now();
+	let customerID = 'cust' + Date.now();
 	let amount = customer.amount;
 	if (customer.amount.indexOf('.') < 0) amount += '.00';
 	let details = {
