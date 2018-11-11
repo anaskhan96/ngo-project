@@ -18,7 +18,11 @@ const scheduleSchema = mongoose.Schema({
 	},
 	subject: {
 		type: String
-	}
+	},
+	volunteersOpted: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'volunteer'
+	}]
 }, {
 	timestamps: true
 });

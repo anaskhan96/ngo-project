@@ -4,6 +4,7 @@ let express = require('express');
 let auth = require('../middleware/auth');
 let volunteerRouter = express.Router();
 let Volunteer = require('../models/volunteer');
+let Schedule = require('../models/schedule');
 
 // authentication middleware
 volunteerRouter.use((req, res, next) => {
@@ -48,14 +49,28 @@ volunteerRouter.get('/details', (req, res) => {
 
 /*
 	GET /volunteer/schedules/all, /volunteer/schedules/preferred
-	response: json { name, workDescription, class, days, subject }
+	response: json { name, workDescription, class, days, subject, optedFor }
 */
 volunteerRouter.get('/schedules/:type', (req, res) => {
 	console.log('GET /volunteer/schedules');
 	if (req.params.type == "all") {
-		Schedule.find().exec((err, results) => {
+		Schedule.find().populate('volunteersOpted').exec((err, schedules) => {
 			if (err) throw err;
-			res.json(results);
+			let finalSchedules = [];
+			schedules.forEach((schedule) => {
+				let optedFor = false;
+				for (let i = 0; i < schedule.volunteersOpted.length; i++) {
+					if (schedule.volunteersOpted[i].username == req.user.username) {
+						optedFor = true;
+						break;
+					}
+				}
+				let sched = schedule.toObject();
+				delete sched.volunteersOpted;
+				sched.optedFor = optedFor;
+				finalSchedules.push(sched);
+			});
+			res.json(finalSchedules);
 		});
 	} else if (req.params.type == "preferred") {
 		Volunteer.findOne({
@@ -68,8 +83,81 @@ volunteerRouter.get('/schedules/:type', (req, res) => {
 				days: volunteer.daysPref
 			}, (err, schedules) => {
 				if (err) throw err;
-				res.json(schedules);
+				let finalSchedules = [];
+				schedules.forEach((schedule) => {
+					let optedFor = false;
+					for (let i = 0; i < schedule.volunteersOpted.length; i++) {
+						if (schedule.volunteersOpted[i].username == req.user.username) {
+							optedFor = true;
+							break;
+						}
+					}
+					let sched = schedule.toObject();
+					delete sched.volunteersOpted;
+					sched.optedFor = optedFor;
+					finalSchedules.push(sched);
+				});
+				res.json(finalSchedules);
 			});
+		});
+	}
+});
+
+/*
+	POST /volunteer/schedule/opt, /volunteer/schedule/deopt
+	request body: json { name }
+	response: json { success (boolean) }
+*/
+volunteerRouter.post('/schedule/:option', (req, res) => {
+	let option = req.params.option;
+	if (option == 'opt') {
+		Volunteer.findOne({
+			username: req.user.username
+		}, (err, volunteer) => {
+			if (err) throw err;
+			Schedule.findOneAndUpdate({
+				name: req.body.name
+			}, {
+				$push: {
+					volunteersOpted: volunteer
+				}
+			}, (err, updatedSchedule) => {
+				if (err) {
+					console.log(err);
+					return res.json({
+						success: false
+					});
+				}
+				res.json({
+					success: true
+				});
+			});
+		});
+	} else if (option == 'deopt') {
+		Schedule.findOne({
+			name: req.body.name
+		}).populate('volunteersOpted').exec((err, schedule) => {
+			for (let i = 0; i < schedule.volunteersOpted.length; i++) {
+				if (schedule.volunteersOpted[i].username == req.user.username) {
+					schedule.volunteersOpted.splice(i, 1);
+					break;
+				}
+			}
+			schedule.save((err, result) => {
+				if (err) {
+					console.log(err);
+					return res.json({
+						success: false
+					});
+				}
+				res.json({
+					success: true
+				});
+			});
+		});
+	} else {
+		res.json({
+			success: false
 		});
 	}
 });
