@@ -1,9 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>NGO Portal | Volunteer</title>
-</head>
+    <link href="styles/volunteer_dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1"><link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="js/volunteer_dashboard.js"></script>
+    
+</head>    
 <body>
-Hello, <i><%= user.username %></i>
-</body>
+    <span class="bckg"></span>
+    <header>
+        <h1>Dashboard</h1>
+        <nav>
+            <ul>
+            <li>
+                <a href="javascript:show_all_sched();" data-title="schedules">Schedules</a>
+            </li>
+            <li>
+                <a href="javascript:show_my_sched();" data-title="myschedules">My Schedules</a>
+            </li>
+            <li>
+                <a href="javascript:show_profile();" data-title="Profile">Profile</a>
+            </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        
+        <div class="title">
+            <!--<h2>Add Videos</h2>-->
+            <a href="javascript:void(0);">Hello, <i><%= user.username %>!</i></a>
+            <a href="/logout">Logout</a>
+        </div>
+
+
+         <article class="larg_sched" id="viewschedule">
+         	<button id='showallsched' class='btn' type="button" onclick="show_all_sched()">All Schedules</button>
+         	<button id='showpreferredsched' class='btn' type="button" onclick="show_pref_sched()">Preferred Schedules</button>
+
+         	<article class="larg_sched" id="viewschedule_all">
+	            <h3>All Available Schedules</h3>         		
+         	</article>
+         	<article class="larg_sched" id="viewschedule_pref" style="display: none">
+	            <h3>Preferred Schedules</h3>
+         	</article>
+        </article>
+
+        <article class="larg_sched" id="viewmysched">
+            <h3>My Schedules</h3>         		
+        </article>
+
+        <article class="larg_vol" style="display: none;" id="profile">
+            <div id="detailsDiv">
+            <h3>Profile Details</h3>  <!-- <span class="entypo-down-open"></span></h3> -->
+            </div>
+        </article>
+
+    </main>
+    </body>
 </html>
