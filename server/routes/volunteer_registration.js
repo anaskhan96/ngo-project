@@ -30,13 +30,16 @@ volunteerRegRouter.post('/', (req, res) => {
 		subjectPref: req.body.subject,
 		daysPref: req.body.days
 	});
-	volunteer.save(function(err, result) {
-		if (err) res.json({
-			success: false,
-			errorMsg: err.toString()
-		});
-		else {
-			console.log(result.username);
+	volunteer.save((err, result) => {
+		if (err) {
+			let errorMsg = 'Registration failed! Please contact management';
+			if (err.code == 11000 && err.errmsg.includes('username')) errorMsg = 'This username has been already taken';
+			else if (err.code = 11000 && err.errmsg.includes('email')) errorMsg = 'This email has been already taken';
+			res.json({
+				success: false,
+				errorMsg: errorMsg
+			});
+		} else {
 			let token = auth.generateToken(result.username, 'volunteer');
 			res.cookie('ngotok', token, {
 				httpOnly: true
