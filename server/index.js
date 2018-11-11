@@ -8,9 +8,10 @@ let requireDir = require('require-dir');
 let routes = requireDir('./routes');
 let auth = require('./middleware/auth');
 let mongoose = require('mongoose');
+require('dotenv').config();
 
 // connect to db
-mongoose.connect('mongodb://localhost:27017/ngodb', {
+mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@anask.xyz:27017/ngodb?authSource=admin', {
 	useNewUrlParser: true
 }).then(
 	() => console.log('mongoose connected to db'),
