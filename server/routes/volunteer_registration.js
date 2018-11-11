@@ -4,13 +4,14 @@ let express = require('express');
 const Volunteer = require('../models/volunteer');
 let volunteerRegRouter = express.Router();
 let auth = require('../middleware/auth');
+const chalk = require('chalk');
 
 /*
 	GET /volunteer_registration
 	response: view
 */
 volunteerRegRouter.get('/', (req, res) => {
-	console.log('GET /volunteer_registration');
+	console.log(chalk.green('GET ' + chalk.blue('/volunteer_registration')));
 	res.render('volunteer_registration.ejs');
 });
 
@@ -20,7 +21,7 @@ volunteerRegRouter.get('/', (req, res) => {
 	response: set-cookie and json { success (boolean) }
 */
 volunteerRegRouter.post('/', (req, res) => {
-	console.log('POST /volunteer_registration');
+	console.log(chalk.cyan('POST ' + chalk.blue('/volunteer_registration')));
 	let volunteer = new Volunteer({
 		name: req.body.name,
 		email: req.body.email,
@@ -40,6 +41,7 @@ volunteerRegRouter.post('/', (req, res) => {
 				errorMsg: errorMsg
 			});
 		} else {
+			console.log(chalk.yellow('Added volunteer: ' + result.username));
 			let token = auth.generateToken(result.username, 'volunteer');
 			res.cookie('ngotok', token, {
 				httpOnly: true

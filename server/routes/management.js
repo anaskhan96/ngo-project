@@ -5,6 +5,7 @@ let auth = require('../middleware/auth');
 let managementRouter = express.Router();
 let Management = require('../models/management');
 let Schedule = require('../models/schedule');
+const chalk = require('chalk');
 
 // authentication middleware
 managementRouter.use((req, res, next) => {
@@ -16,7 +17,7 @@ managementRouter.use((req, res, next) => {
 	response: view with variables { user (username) }
 */
 managementRouter.get('/', (req, res) => {
-	console.log('GET /management');
+	console.log(chalk.green('GET ' + chalk.blue('/management')));
 	res.render('managementHome.ejs', {
 		user: req.user
 	});
@@ -27,7 +28,7 @@ managementRouter.get('/', (req, res) => {
 	response: json { success (boolean), name, email, username }
 */
 managementRouter.get('/details', (req, res) => {
-	console.log('GET /management/details');
+	console.log(chalk.green('GET ' + chalk.blue('/management/details')));
 	Management.findOne({
 		username: req.user.username
 	}, (err, management) => {
@@ -49,7 +50,7 @@ managementRouter.get('/details', (req, res) => {
 	response: json { success (boolean), users { name, email, username } }
 */
 managementRouter.get('/users/:usertype', (req, res) => {
-	console.log('GET /management/users');
+	console.log(chalk.green('GET ' + chalk.blue('/management/users')));
 	if (req.params.usertype == 'management') return res.json({
 		success: false
 	});
@@ -76,7 +77,7 @@ managementRouter.get('/users/:usertype', (req, res) => {
 	response: json { success (boolean) }
 */
 managementRouter.post('/addUser/:usertype', (req, res) => {
-	console.log('POST /management/addUser');
+	console.log(chalk.cyan('POST ' + chalk.blue('/management/addUser')));
 	if (req.params.usertype != "student" && req.params.usertype != "teacher") return res.json({
 		success: false
 	});
@@ -104,7 +105,7 @@ managementRouter.post('/addUser/:usertype', (req, res) => {
 			success: false,
 			errorMsg: err.toString()
 		});
-		console.log('Added: ', result.username);
+		console.log(chalk.yellow('Added ' + req.params.usertype + ': ' + result.username));
 		res.json({
 			success: true
 		});
@@ -117,7 +118,7 @@ managementRouter.post('/addUser/:usertype', (req, res) => {
 	response: json { success (boolean) }
 */
 managementRouter.post('/deleteUser/:usertype', (req, res) => {
-	console.log('POST /management/delete');
+	console.log(chalk.cyan('POST ' + chalk.blue('/management/delete')));
 	if (req.params.usertype != "student" && req.params.usertype != "teacher") return res.json({
 		success: false
 	});
@@ -140,7 +141,7 @@ managementRouter.post('/deleteUser/:usertype', (req, res) => {
 	response: json { name, workDescription, class, days, subject, volunteersOpted (array of volunteer usernames) }
 */
 managementRouter.get('/schedules', (req, res) => {
-	console.log('GET /management/schedules');
+	console.log(chalk.green('GET ' + chalk.blue('/management/schedules')));
 	Schedule.find().populate('volunteersOpted').exec((err, schedules) => {
 		if (err) throw err;
 		let finalSchedules = [];
@@ -160,11 +161,11 @@ managementRouter.get('/schedules', (req, res) => {
 	response: json { success (boolean) }
 */
 managementRouter.post('/addSchedule', (req, res) => {
-	console.log('POST /management/addSchedule');
+	console.log(chalk.cyan('POST ' + chalk.blue('/management/addSchedule')));
 	let schedule = new Schedule(req.body);
 	schedule.save((err, result) => {
 		if (err) {
-			console.log(err);
+			console.log(chalk.red(err));
 			return res.json({
 				success: false,
 				errorMsg: err.toString()
@@ -182,7 +183,7 @@ managementRouter.post('/addSchedule', (req, res) => {
 	response: json { success (boolean) }
 */
 managementRouter.post('/deleteSchedule', (req, res) => {
-	console.log('POST /management/deleteSchedule');
+	console.log(chalk.cyan('POST ' + chalk.blue('/management/deleteSchedule')));
 	Schedule.deleteOne({
 		name: req.body.name
 	}, (err) => {
