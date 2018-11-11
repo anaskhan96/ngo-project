@@ -6,6 +6,7 @@ let teacherRouter = express.Router();
 let Teacher = require('../models/teacher');
 let Videos = require('../models/videos');
 let Student = require('../models/student');
+const chalk = require('chalk');
 
 // authentication middleware
 teacherRouter.use((req, res, next) => {
@@ -17,7 +18,7 @@ teacherRouter.use((req, res, next) => {
 	response: view with variables { user (username) }
 */
 teacherRouter.get('/', (req, res) => {
-	console.log('GET /teacher');
+	console.log(chalk.green('GET ' + chalk.blue('/teacher')));
 	res.render('teacher_dashboard.ejs', {
 		user: req.user
 	});
