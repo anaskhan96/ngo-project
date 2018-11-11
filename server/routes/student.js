@@ -98,6 +98,7 @@ studentRouter.get('/video/:link', (req, res) => {
 		}
 		res.render('video.ejs', {
 			video: {
+				username: req.user.username,
 				name: video.name,
 				link: video.link,
 				comments: comments
