@@ -1,4 +1,4 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>NGO Portal</title>
@@ -60,6 +60,10 @@
 		Your time to care has come
 		Transform the lives of thousands of vulnerable children in India. Volunteer with us. <a id="volunteer_registration" href="/volunteer_registration">VOLUNTEER NOW</a> <!--Link the volunteer_registration page here
 </div> -->
+
+<div style="display: none">
+	<form method='post' action='https://securegw-stage.paytm.in/theia/processTransaction' name='f1'></form>
+	</div>
 <div class="donation-container" id="donashun">
 		<div class="donation-meter">
 				<strong style="margin-left:-2vw;">Monthly Requirements</strong>
@@ -80,16 +84,16 @@
 			<div class="title">Donation Information</div>
 			
 			<div class="fields">
-				<input type="text" id="firstName" placeholder="First Name"> </input>
-				<input type="text" id="lastName" placeholder="Last Name"> </input>
-				<input type="text" id="email" placeholder="Email"> </input>
+				<input type="text" id="name" placeholder="Name">
+				<input type="text" id="mobile" placeholder="9999999999">
+				<input type="text" id="email" placeholder="Email">
 			</div>
 			
 			<div class="amount">
-				<div class="button">₹100</div>
-				<div class="button">₹500</div>
-				<div class="button">₹1000</div>
-				<div class="button">₹<input type="number" class="set-amount" placeholder=""> </input></div>
+				<div class="button" onclick="set_amount(100)" value="100">₹100</div>
+				<div class="button" onclick="set_amount(500)" value="500">₹500</div>
+				<div class="button" onclick="set_amount(1000)" value="1000">₹1000</div>
+				<div class="button">₹<input type="number" class="set-amount" id="donation_amount" placeholder=""></div>
 			</div>
 			
 			<div class="switch">
@@ -113,9 +117,48 @@
 	
 	<div class="confirm">
 	</div>
-			<div class="donate-button"><i class="fa fa-credit-card"></i> Donate Now</div>
-		</div>
+			<div class="donate-button" id="initPayment"><i class="fa fa-credit-card"></i>Donate Now</div>
+	</div>
 </div>
+<script type="text/javascript">
+
+	function set_amount(amount) {
+		var field = document.getElementById('donation_amount');
+		field.value = amount;
+	}
+	function initiatePayment() {
+		let name = document.getElementById('name').value;
+		let email = document.getElementById('email').value;
+		let mobile = document.getElementById('mobile').value;
+		let amount = document.getElementById('donation_amount').value;
+		fetch('/donate', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				mobile: mobile,
+				amount: amount,
+				isMonetary: true
+			})
+		}).then((result) => result.json()).then((res) => {
+			if(!res.success) alert('Payment initiation failed');
+			else {
+				let details = res.details;
+				let f1 = document.getElementsByName('f1')[0];
+				for(let i in details){
+					f1.innerHTML += "<input type='hidden' name='" + i + "' value='" + details[i] + "'>"	
+				}
+				f1.submit();
+			}
+		});
+	}
+
+	let initPaymentBtn = document.getElementById('initPayment');
+	initPaymentBtn.addEventListener('click', initiatePayment, false);
+</script>
 <script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>
