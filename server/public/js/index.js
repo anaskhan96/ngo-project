@@ -23,6 +23,20 @@ function carousel() {
     setTimeout(carousel, 6000);
 }
 
+function call_requested() {
+    swal("Callback Requested!", "Thank you for your interest, we will call you soon.", "success");
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+}
+let loginButton = document.getElementById('request_call');
+loginButton.addEventListener('click', call_requested, false);
+    var ssbApp = angular.module("ssbApp", []);
+    ssbApp.controller('ssbCtrl', function ($scope, $http) {
+        $scope.showHideTest = false;
+        $scope.showHideTest = true;
+    });
+    
 var firstName = "";
 var lastName = "";
 var email = "";
@@ -31,8 +45,6 @@ var receipt = "";
 var anon = "";
 var list = "";
 var amount = "";
-
-$('.set-amount').autoGrow(0);
 
 /*
     if(isiPad || jQuery.browser.mobile){
@@ -219,3 +231,40 @@ function stoppie(d, b) {
         $("#pie_" + d + " .percent .int").html(arr[0]);
     }
 }
+
+function set_amount(amount) {
+    var field = document.getElementById('donation_amount');
+    field.value = amount;
+}
+function initiatePayment() {
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let mobile = document.getElementById('mobile').value;
+    let amount = document.getElementById('donation_amount').value;
+    fetch('/donate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            mobile: mobile,
+            amount: amount,
+            isMonetary: true
+        })
+    }).then((result) => result.json()).then((res) => {
+        if(!res.success) alert('Payment initiation failed');
+        else {
+            let details = res.details;
+            let f1 = document.getElementsByName('f1')[0];
+            for(let i in details){
+                f1.innerHTML += "<input type='hidden' name='" + i + "' value='" + details[i] + "'>"	
+            }
+            f1.submit();
+        }
+    });
+}
+
+let initPaymentBtn = document.getElementById('initPayment');
+initPaymentBtn.addEventListener('click', initiatePayment, false);
