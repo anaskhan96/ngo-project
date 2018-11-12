@@ -33,6 +33,12 @@ a {
   left:0;
   top:0;
 }
+h4 {
+  font-size: 1.5em;
+}
+.question_text {
+  font-size: 1.2em;
+}
 h1 {
     text-align: center;
     font-weight: normal;
