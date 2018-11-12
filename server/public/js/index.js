@@ -36,7 +36,7 @@ loginButton.addEventListener('click', call_requested, false);
         $scope.showHideTest = false;
         $scope.showHideTest = true;
     });
-    
+
 var firstName = "";
 var lastName = "";
 var email = "";
@@ -237,6 +237,11 @@ function set_amount(amount) {
     field.value = amount;
 }
 function initiatePayment() {
+    swal("Transaction Accepted!","You will now be forwarded to the payment gateway.", "success");
+    setTimeout(() => {
+        window.location.href = '/';
+    }, 4000);
+
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
     let mobile = document.getElementById('mobile').value;
