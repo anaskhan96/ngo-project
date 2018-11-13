@@ -90,13 +90,15 @@ fetch('/management/users/teacher').then((result) => result.json()).then((res) =>
       let p = document.createElement('div');
       p.innerHTML = "Name:"+res[key]["name"]+"</br>"+"Work Description:"+res[key]["workDescription"]+"</br>"+"Class:"+res[key]["class"]+"</br>"+"Subject:"+res[key]["subject"];
       var button = document.createElement('button');
-      button.setAttribute("style", "background-color: #4CAF50;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
+      var t = document.createTextNode("Remove Teacher");
+      button.appendChild(t);
+      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
       button.addEventListener("click",function(){
         fetch('/management/deleteSchedule',{
           method : "POST",
           body: JSON.stringify(
           {
-            name : u["name"],
+            name : res[key]["name"],
           }),
           headers: {"Content-Type" : "application/json;charset=utf-8"}
         }).then((result) => result.json()).then((res) => {
@@ -110,8 +112,16 @@ fetch('/management/users/teacher').then((result) => result.json()).then((res) =>
       detailsDiv.appendChild(p);
     }
     });
-});
 
+    fetch('/management/donations').then((result) => result.json()).then((res) => {
+      console.log(res);
+      res['donations'].forEach(function(u){
+        let p = document.createElement('div');
+        p.innerHTML = "Name:"+u["name"]+"</br>"+"Email:"+u["email"]+"</br>"+"moblie#:"+u["mobile"]+"</br>"+"Amount Donated:"+u["amountDonated"]+"</br>"+"Transaction Details:"+u["transactionDetails.STATUS"];
+        detailsDiv3.appendChild(p);
+      });
+    });
+});
 
 
 function show_students() {
@@ -121,6 +131,8 @@ function show_students() {
   teachers.style.display = "none";
   var schedule = document.getElementById("schedule");
   schedule.style.display = "none";
+  var dons = document.getElementById("donations");
+  dons.style.display = "none";
 }
 
 function show_teachers() {
@@ -130,6 +142,8 @@ function show_teachers() {
   teachers.style.display = "block";
   var schedule = document.getElementById("schedule");
   schedule.style.display = "none";
+  var dons = document.getElementById("donations");
+  dons.style.display = "none";
 }
 
 function show_schedule() {
@@ -139,4 +153,48 @@ function show_schedule() {
   teachers.style.display = "none";
   var schedule = document.getElementById("schedule");
   schedule.style.display = "block";
+  var dons = document.getElementById("donations");
+  dons.style.display = "none";
+}
+function show_donations() {
+  var students = document.getElementById("students");
+  students.style.display = "none";
+  var teachers = document.getElementById("teachers");
+  teachers.style.display = "none";
+  var schedule = document.getElementById("schedule");
+  schedule.style.display = "none";
+  var dons = document.getElementById("donations");
+  dons.style.display = "block";
+}
+
+
+
+
+function add_user(){
+    //do same as add_schedule and collect input using form
+    alert("Hello");
+}
+
+function add_teacher(){
+    //do same as add_schedule and collect input using form
+    alert("Hello");
+}
+
+function add_schedule(){
+  fetch('/management/addSchedule',{
+    method : "POST",
+    body: JSON.stringify(
+    {
+      name : "Ash",
+      workDescription : "Stuff",
+      class : 6,
+      subject: "Math",
+    }),
+    headers: {"Content-Type" : "application/json;charset=utf-8"}
+  }).then((result) => result.json()).then((res) => {
+    console.log(res);
+    show_schedule();  // ajax call to reload page not working
+    });
+
+
 }
