@@ -130,4 +130,18 @@ donateRouter.post('/payment', (req, res) => {
 	});
 });
 
+donateRouter.get('/received', (req, res) => {
+	console.log(chalk.green('GET ' + chalk.blue('/donate/received')));
+	Donations.find({
+		"transactionDetails.STATUS": "TXN_SUCCESS"
+	}, (err, donations) => {
+		if (err) throw err;
+		let amounts = 0;
+		for (let i = 0; i < donations.length; i++) amounts += donations[i].amountDonated;
+		res.json({
+			amount: amounts
+		});
+	});
+});
+
 module.exports = donateRouter;
