@@ -136,10 +136,10 @@ donateRouter.get('/received', (req, res) => {
 		"transactionDetails.STATUS": "TXN_SUCCESS"
 	}, (err, donations) => {
 		if (err) throw err;
-		let amounts = 0;
-		for (let i = 0; i < donations.length; i++) amounts += donations[i].amountDonated;
+		let totalAmount = 0;
+		for (let i = 0; i < donations.length; i++) totalAmount += donations[i].amountDonated;
 		res.json({
-			amount: amounts
+			amount: totalAmount.toLocaleString('en-IN')
 		});
 	});
 });
