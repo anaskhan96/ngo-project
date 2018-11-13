@@ -6,6 +6,7 @@ let managementRouter = express.Router();
 let Management = require('../models/management');
 let Schedule = require('../models/schedule');
 const chalk = require('chalk');
+let Donations = require('../models/donations');
 
 // authentication middleware
 managementRouter.use((req, res, next) => {
@@ -196,6 +197,34 @@ managementRouter.post('/deleteSchedule', (req, res) => {
 		}
 		res.json({
 			success: true
+		});
+	});
+});
+
+/*
+	GET /management/donations
+	response: json { success(boolean), donations: json { name, email, mobile, amount, status } }
+*/
+managementRouter.get('/donations', (req, res) => {
+	console.log(chalk.green('GET ' + chalk.blue('/management/donations')));
+	Donations.find().exec((err, donations) => {
+		if (err) {
+			console.log(chalk.red(err));
+			return res.json({
+				success: false
+			});
+		}
+		let finalResults = [];
+		for (let i = 0; i < donations.length; i++) finalResults.push({
+			name: donations[i].name,
+			email: donations[i].email,
+			mobile: donations[i].mobile,
+			amount: donations[i].amountDonated,
+			status: donations[i].transactionDetails.STATUS
+		});
+		res.json({
+			success: true,
+			donations: finalResults
 		});
 	});
 });
