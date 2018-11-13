@@ -146,6 +146,7 @@ function delete_video(e)
   });
 }
 
+
 function add_videos() {
   var assignments = document.getElementById("addVideos");
   assignments.style.display = "block";
