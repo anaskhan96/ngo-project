@@ -14,11 +14,13 @@ cd ngo-project
 npm install
 ```
 
-+ ~~Include the db details in a `.env` file in the root directory in the following form :-~~ (not needed for local storage, use `mongorestore` inside the folder 'dump' to set up local db)
++ Include the db and PayTM API details in a `.env` file in the root directory in the following form :-
 
 ```
 DB_USER=<username>
 DB_PASS=<password>
+PAYTM_MID=<mid>
+PAYTM_ACCTKEY=<acctkey>
 ```
 
 + Run `npm test` to run all the tests.

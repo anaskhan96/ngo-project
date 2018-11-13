@@ -5,6 +5,7 @@ let auth = require('../middleware/auth');
 let studentRouter = express.Router();
 let Student = require('../models/student');
 let Videos = require('../models/videos');
+const chalk = require('chalk');
 
 // authentication middleware
 studentRouter.use((req, res, next) => {
@@ -16,7 +17,7 @@ studentRouter.use((req, res, next) => {
 	response: view with variables { user (username) }
 */
 studentRouter.get('/', (req, res) => {
-	console.log('GET /student');
+	console.log(chalk.green('GET ' + chalk.blue('/student')));
 	res.render('student_dashboard.ejs', {
 		user: req.user
 	});
@@ -27,7 +28,7 @@ studentRouter.get('/', (req, res) => {
 	response: json { success (boolean), name, email, username }
 */
 studentRouter.get('/details', (req, res) => {
-	console.log('GET /student/details');
+	console.log(chalk.green('GET ' + chalk.blue('/student/details')));
 	Student.findOne({
 		username: req.user.username
 	}, (err, student) => {
@@ -49,7 +50,7 @@ studentRouter.get('/details', (req, res) => {
 	response: json { success (boolean), videos { name, link } }
 */
 studentRouter.get('/videos', (req, res) => {
-	console.log('GET /student/videos');
+	console.log(chalk.green('GET ' + chalk.blue('/student/videos')));
 	Student.findOne({
 		username: req.user.username
 	}).populate('videos').exec((err, student) => {
@@ -79,7 +80,7 @@ studentRouter.get('/videos', (req, res) => {
 	response: view with variables { video { name, link, comments } }
 */
 studentRouter.get('/video/:link', (req, res) => {
-	console.log('GET /student/video');
+	console.log(chalk.green('GET ' + chalk.blue('/student/video')));
 	let link = decodeURIComponent(req.params.link);
 	Videos.findOne({
 		link: link
@@ -97,6 +98,7 @@ studentRouter.get('/video/:link', (req, res) => {
 		}
 		res.render('video.ejs', {
 			video: {
+				username: req.user.username,
 				name: video.name,
 				link: video.link,
 				comments: comments
@@ -111,7 +113,7 @@ studentRouter.get('/video/:link', (req, res) => {
 	response: json { success (boolean), username, text }
 */
 studentRouter.post('/addComment/:link', (req, res) => {
-	console.log('POST /student/addComment');
+	console.log(chalk.cyan('POST ' + chalk.blue('/student/addComment')));
 	let link = decodeURIComponent(req.params.link);
 	Student.findOne({
 		username: req.user.username
@@ -148,7 +150,7 @@ studentRouter.post('/addComment/:link', (req, res) => {
 	response: json { success (boolean) }
 */
 studentRouter.post('/deleteComment/:link', (req, res) => {
-	console.log('POST /student/deleteComment');
+	console.log(chalk.cyan('POST ' + chalk.blue('/student/deleteComment')));
 	let link = decodeURIComponent(req.params.link);
 	Videos.findOne({
 		link: link
@@ -161,7 +163,7 @@ studentRouter.post('/deleteComment/:link', (req, res) => {
 		}
 		video.save((err, result) => {
 			if (err) {
-				console.log(err);
+				console.log(chalk.red(err));
 				res.json({
 					success: false
 				});

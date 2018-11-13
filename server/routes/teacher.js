@@ -6,6 +6,7 @@ let teacherRouter = express.Router();
 let Teacher = require('../models/teacher');
 let Videos = require('../models/videos');
 let Student = require('../models/student');
+const chalk = require('chalk');
 
 // authentication middleware
 teacherRouter.use((req, res, next) => {
@@ -17,7 +18,7 @@ teacherRouter.use((req, res, next) => {
 	response: view with variables { user (username) }
 */
 teacherRouter.get('/', (req, res) => {
-	console.log('GET /teacher');
+	console.log(chalk.green('GET ' + chalk.blue('/teacher')));
 	res.render('teacher_dashboard.ejs', {
 		user: req.user
 	});
@@ -28,7 +29,7 @@ teacherRouter.get('/', (req, res) => {
 	response: json { success (boolean), name, email, username }
 */
 teacherRouter.get('/details', (req, res) => {
-	console.log('GET /teacher/details');
+	console.log(chalk.green('GET ' + chalk.blue('/teacher/details')));
 	Teacher.findOne({
 		username: req.user.username
 	}, (err, teacher) => {
@@ -50,7 +51,7 @@ teacherRouter.get('/details', (req, res) => {
 	response: json { success (boolean), videos { name, link } }
 */
 teacherRouter.get('/videos', (req, res) => {
-	console.log('GET /teacher/videos');
+	console.log(chalk.green('GET ' + chalk.blue('/teacher/videos')));
 	Videos.find().populate({
 		path: 'postedBy',
 		match: {
@@ -76,12 +77,43 @@ teacherRouter.get('/videos', (req, res) => {
 });
 
 /*
+	GET /teacher/video/<linkOfVideo>
+	response: view with variables { video { name, link, comments } }
+*/
+teacherRouter.get('/video/:link', (req, res) => {
+	console.log(chalk.green('GET ' + chalk.blue('/teacher/video')));
+	let link = decodeURIComponent(req.params.link);
+	Videos.findOne({
+		link: link
+	}).populate('vidComments.student').exec((err, video) => {
+		if (err) throw err;
+		if (video == null) return res.render('404.ejs');
+		let comments = [];
+		for (let i = 0; i < video.vidComments.length; i++) {
+			if (video.vidComments[i].student) {
+				comments.push({
+					username: video.vidComments[i].student.username,
+					text: video.vidComments[i].text
+				});
+			}
+		}
+		res.render('video.ejs', {
+			video: {
+				name: video.name,
+				link: video.link,
+				comments: comments
+			}
+		});
+	});
+});
+
+/*
 	POST /teacher/addVideo
 	request body: json { name, link }
 	response: json { success (boolean), name, link }
 */
 teacherRouter.post('/addVideo', (req, res) => {
-	console.log('POST /teacher/addVideo');
+	console.log(chalk.cyan('POST ' + chalk.blue('/teacher/addVideo')));
 	Teacher.findOne({
 		username: req.user.username
 	}).populate('students').exec((err, teacher) => {
@@ -96,7 +128,7 @@ teacherRouter.post('/addVideo', (req, res) => {
 		});
 		video.save((err, result) => {
 			if (err) {
-				console.log(err);
+				console.log(chalk.red(err));
 				return res.json({
 					success: false
 				});
@@ -127,7 +159,7 @@ teacherRouter.post('/addVideo', (req, res) => {
 	response: json { success (boolean) }
 */
 teacherRouter.post('/deleteVideo', (req, res) => {
-	console.log('POST /teacher/deleteVideo');
+	console.log(chalk.cyan('POST ' + chalk.blue('/teacher/deleteVideo')));
 	Videos.deleteOne({
 		link: req.body.link
 	}, (err) => {

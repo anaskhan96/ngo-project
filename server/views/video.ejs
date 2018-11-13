@@ -2,17 +2,190 @@
 <html>
 <head>
 	<title><%= video.name %></title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<style>
+		@import url(http://weloveiconfonts.com/api/?family=entypo);
+		@import url(https://fonts.googleapis.com/css?family=Muli);
+		body {
+			background-color:#2F323C;
+			color: gray;
+			font-family:Muli, sans-serif;
+			text-align: center;
+		}
+		#videoframe {
+			margin: auto;
+		}
+		#comments {
+			text-align: center;
+		
+		}
+		p {
+			margin: auto;
+			padding: 3px 3px 3px 3px;
+			font-size: 1em;
+			background-color: grey;
+			border-radius: 5px;
+			height: 4vh;
+			color: azure;
+			left:20%;
+			width: 60%;
+		}
+
+		#add_comment_container {
+			margin-top: 3vh;
+		}
+
+		:after, :before{
+		content:"";
+		display: block;
+		position: absolute;
+		}
+
+		.bg{
+		background: #46485c;
+		width: 200px;
+		height: 200px;
+		border-radius: 50%;
+		left: 50%;
+		top: 50%;
+		margin: -100px 0px 0px -100px;
+		position: absolute;
+		z-index: -1
+		}
+
+		.lamb{
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+			background-image: linear-gradient(0deg, transparent 0%,transparent 50%,#E76853 50%, #E76853 100%);
+		margin: 40px 0px 0px 88px;
+		transform: rotate(45deg);
+		}
+		.lamb:before{
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+			background-image: linear-gradient(180deg, transparent 0%,transparent 50%,#F5C44F 50%, #F5C44F 100%);
+		margin: 16px 0px 0px 16px;
+		}
+		.lamb:after{
+		width: 16px;
+		height: 22px;
+		border-radius: 20px 20px 0px 0px;
+			background: #E76853;
+		margin: -14px 0px 0px 16px;
+		}
+		.light{
+		background: transparent;
+		transform: rotate(45deg);
+		position: absolute;
+		height: 0;
+		width: 48px;
+		border-bottom: 136px solid #2F323C;
+		border-left: 40px solid transparent;
+		border-right: 40px solid transparent;
+		margin: -44px 0px 0px 0px;
+		z-index: -1
+		}
+
+
+		.holder{
+		position: absolute;
+		width: 2px;
+		height: 92px;
+		background: #E76853;
+		margin: -44px 0px 0px 158px;
+		transform: rotate(-30deg);
+		box-shadow: 4px 0px 0px 0px #E76853;
+		}
+		.holder:after{
+		width: 2px;
+		height: 92px;
+		background: #e76853;
+		margin: 68px 0px 0px -38px;
+		transform: rotate(60deg);
+		box-shadow: 4px 0px 0px 0px #e76853;
+		}
+		.holder:before{
+		width: 10px;
+		height: 10px;
+		background: #2F323C;
+		border: 2px solid #e76853;
+		border-radius: 50%;
+		margin: 84px 0px 0px -6px;
+		z-index: 9999;
+		}
+
+		#onoff{
+		background: #B3C658;
+		position: absolute;
+		border: 0px;
+		border-radius: 50%;
+		width: 5px;
+		height: 5px;
+		cursor: pointer;
+		padding: 0px;
+		margin: 88px 0px 0px -2px;
+		z-index: 9999;
+		}
+
+		.foot{
+		background: #B3C658;
+		position: absolute;
+		border: 0px;
+		width: 12px;
+		height:6px;
+		margin: 120px 0px 0px 134px;
+		border-radius: 2px 2px 0px 0px;
+		}
+		.foot:after{
+		width: 40px;
+		height: 14px;
+		border-radius: 50%;
+			background-image: linear-gradient(0deg, transparent 0%,transparent 50%,#E76853 50%, #E76853 100%);
+		margin: 6px 0px 0px -14px;
+		}
+
+		.bg span
+		{
+		color: #46485C;
+		font-weight: bold;
+		font-size: 13px;
+		position: absolute;
+		width: 200px;
+		text-align: center;
+		margin-top: 170px;
+		}
+
+		.bg {
+			position: absolute;
+			left: 85vw;
+		}
+		#onoff {
+			width: 200px;
+			height: 200px;
+		}
+
+	</style>
 </head>
 <body>
-<h3><%= video.name %></h3>
-<iframe width="640" height="480" src="<%= video.link %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<h1><%= video.name %></h1>
+<div class="bg" onclick="lights()">
+  <div class="lamb"></div>
+  <div class="light"></div>
+  <div class="holder"><button id="onoff"></button></div>
+  <div class="foot"></div>
+</div>
+<iframe id="videoframe" width="640" height="480" src="<%= video.link %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <div id="comments">
 	<% for(var i = 0; i < video.comments.length; i++) { %>
-	<p><%= video.comments[i].username %>: <%= video.comments[i].text %></p>
+	<p><strong><%= video.comments[i].username %> </strong>: <%= video.comments[i].text %></p>
 	<% } %>
 </div>
+<div id="add_comment_container">
 <input type="text" name="comment" id="newComment">
-<button id="addComment">Add Comment</button>
+<button id="addComment">Comment</button>
+</div>
 <script type="text/javascript">
 	let link = encodeURIComponent("<%= video.link %>");
 
@@ -39,6 +212,10 @@
 
 	let addCommentBtn = document.getElementById('addComment');
 	addCommentBtn.addEventListener('click', addComment, false);
+
+	function lights() {
+  $(".light").toggle();
+}
 </script>
 </body>
 </html>

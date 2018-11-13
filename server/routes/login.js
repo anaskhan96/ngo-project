@@ -2,6 +2,7 @@
 
 let express = require('express');
 let auth = require('../middleware/auth');
+const chalk = require('chalk');
 let loginRouter = express.Router();
 
 // for demo purposes
@@ -12,7 +13,7 @@ let loginTriesLimit = 0;
 	response: view
 */
 loginRouter.get('/', (req, res) => {
-	console.log('GET /login');
+	console.log(chalk.green('GET ' + chalk.blue('/login')));
 	res.render('login.ejs');
 });
 
@@ -22,7 +23,7 @@ loginRouter.get('/', (req, res) => {
 	response: set-cookie and json { success (boolean) }
 */
 loginRouter.post('/', (req, res) => {
-	console.log('POST /login');
+	console.log(chalk.cyan('POST ' + chalk.blue('/login')));
 	// demo purposes
 	if (loginTriesLimit == 3) {
 		loginTriesLimit = 0;

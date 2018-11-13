@@ -5,13 +5,14 @@ let express = require('express');
 let donateRouter = express.Router();
 let checksum = require('../middleware/checksum/checksum');
 let Donations = require('../models/donations');
+const chalk = require('chalk');
 
 /*
 	GET /donate
 	response: view
 */
 donateRouter.get('/', (req, res) => {
-	console.log('GET /donate');
+	console.log(chalk.green('GET ' + chalk.blue('/donate')));
 	res.render('donate.ejs');
 });
 
@@ -21,7 +22,7 @@ donateRouter.get('/', (req, res) => {
 	response: view with variables { success (boolean) }
 */
 donateRouter.post('/', (req, res) => {
-	console.log('POST /donate');
+	console.log(chalk.cyan('POST ' + chalk.blue('/donate')));
 	if (!req.body.isMonetary) {
 		let donation = new Donations({
 			name: req.body.name,
@@ -32,7 +33,7 @@ donateRouter.post('/', (req, res) => {
 		});
 		donation.save((err, result) => {
 			if (err) {
-				console.log(err);
+				console.log(chalk.red(err));
 				return res.render('postDonation.ejs', {
 					success: false
 				});
@@ -52,8 +53,8 @@ donateRouter.post('/', (req, res) => {
 });
 
 function initiatePayment(customer, callback) {
-	let orderID = 'order' + Math.floor(Math.random() * 1000000).toString();
-	let customerID = 'cust' + Math.floor(Math.random() * 1000000).toString();
+	let orderID = 'order' + Date.now();
+	let customerID = 'cust' + Date.now();
 	let amount = customer.amount;
 	if (customer.amount.indexOf('.') < 0) amount += '.00';
 	let details = {
@@ -70,7 +71,7 @@ function initiatePayment(customer, callback) {
 	}
 	checksum.genchecksum(details, process.env.PAYTM_ACCTKEY, function(err, generatedChecksum) {
 		if (err) {
-			console.log(err);
+			console.log(chalk.red(err));
 			return callback(false, null);
 		}
 		details.CHECKSUMHASH = generatedChecksum;
@@ -87,7 +88,7 @@ function initiatePayment(customer, callback) {
 		});
 		donation.save((err, res) => {
 			if (err) {
-				console.log(err);
+				console.log(chalk.red(err));
 				return callback(false, null);
 			}
 			callback(true, details);
@@ -101,7 +102,7 @@ function initiatePayment(customer, callback) {
 	response: same as POST /donate
 */
 donateRouter.post('/payment', (req, res) => {
-	console.log('POST /donate/payment');
+	console.log(chalk.cyan('POST ' + chalk.blue('/donate/payment')));
 	Donations.findOne({
 		"transactionDetails.ORDERID": req.body.ORDERID
 	}, (err, donation) => {
@@ -117,7 +118,7 @@ donateRouter.post('/payment', (req, res) => {
 		donation.paymentMode = req.body.PAYMENTMODE;
 		donation.save((err, result) => {
 			if (err) {
-				console.log(err);
+				console.log(chalk.red(err));
 				return res.render('postDonation.ejs', {
 					success: false
 				});

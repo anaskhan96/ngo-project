@@ -49,6 +49,10 @@ $(document).ready( function() {
         iframe.setAttribute('allowfullscreen', '');
         iframe.setAttribute('src', vids[i].link);
         div.appendChild(iframe);
+        let a = document.createElement('a');
+        a.setAttribute('href', '/teacher/video/' + encodeURIComponent(vids[i].link));
+        a.innerHTML = 'Open this video with discussions';
+        div.appendChild(a);
         let delBtn = document.createElement("button");
         delBtn.id = "delVideo";
         delBtn.className = "delbtn";

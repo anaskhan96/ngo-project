@@ -5,6 +5,7 @@ let auth = require('../middleware/auth');
 let volunteerRouter = express.Router();
 let Volunteer = require('../models/volunteer');
 let Schedule = require('../models/schedule');
+const chalk = require('chalk');
 
 // authentication middleware
 volunteerRouter.use((req, res, next) => {
@@ -16,7 +17,7 @@ volunteerRouter.use((req, res, next) => {
 	response: view with variables { user (username) }
 */
 volunteerRouter.get('/', (req, res) => {
-	console.log('GET /volunteer');
+	console.log(chalk.green('GET ' + chalk.blue('/volunteer')));
 	res.render('volunteerHome.ejs', {
 		user: req.user
 	});
@@ -27,7 +28,7 @@ volunteerRouter.get('/', (req, res) => {
 	response: json { success (boolean), name, email, username }
 */
 volunteerRouter.get('/details', (req, res) => {
-	console.log('GET /volunteer/details');
+	console.log(chalk.green('GET ' + chalk.blue('/volunteer/details')));
 	Volunteer.findOne({
 		username: req.user.username
 	}, (err, volunteer) => {
@@ -52,7 +53,7 @@ volunteerRouter.get('/details', (req, res) => {
 	response: json { name, workDescription, class, days, subject, optedFor }
 */
 volunteerRouter.get('/schedules/:type', (req, res) => {
-	console.log('GET /volunteer/schedules');
+	console.log(chalk.green('GET ' + chalk.blue('/volunteer/schedules')));
 	if (req.params.type == "all") {
 		Schedule.find().populate('volunteersOpted').exec((err, schedules) => {
 			if (err) throw err;
@@ -109,6 +110,7 @@ volunteerRouter.get('/schedules/:type', (req, res) => {
 	response: json { success (boolean) }
 */
 volunteerRouter.post('/schedule/:option', (req, res) => {
+	console.log(chalk.cyan('POST ' + chalk.blue('/volunteer/schedule')));
 	let option = req.params.option;
 	if (option == 'opt') {
 		Volunteer.findOne({
@@ -123,7 +125,7 @@ volunteerRouter.post('/schedule/:option', (req, res) => {
 				}
 			}, (err, updatedSchedule) => {
 				if (err) {
-					console.log(err);
+					console.log(chalk.red(err));
 					return res.json({
 						success: false
 					});
@@ -145,7 +147,7 @@ volunteerRouter.post('/schedule/:option', (req, res) => {
 			}
 			schedule.save((err, result) => {
 				if (err) {
-					console.log(err);
+					console.log(chalk.red(err));
 					return res.json({
 						success: false
 					});
