@@ -273,3 +273,8 @@ function initiatePayment() {
 
 let initPaymentBtn = document.getElementById('initPayment');
 initPaymentBtn.addEventListener('click', initiatePayment, false);
+
+fetch('/donate/received').then((result) => result.json()).then((res) => {
+    let moneyReceived = document.getElementById('moneyReceived');
+    moneyReceived.innerHTML = "₹" + res.amount; 
+});
