@@ -1,13 +1,14 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 	<title>NGO Portal</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 	<link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
 	<link href="styles/index.css" rel="stylesheet">
-
 </head>
 <body>
 		<div class="header">
@@ -47,21 +48,22 @@
 	</div>
 	<img src='resources/class5.jpg' style="position: absolute; top: 240vh; left: 55vw; width: 40vw;">
 	</div>
-<!-- <div id="volunteer" style="background-image: url('resources/class2.jpg') center no-repeat;">
-	
-		Imagine your childhood without a family.
-		Imagine living on hand-me-downs.
-		Imagine failing exams. Consistently. 
-		Imagine a dead end job that pays peanuts. 
-		Imagine a life of abuse and abandonment. 
-		
-		
-		This is the life of 176 Million children in India right now. 
-		Your time to care has come
-		Transform the lives of thousands of vulnerable children in India. Volunteer with us. <a id="volunteer_registration" href="/volunteer_registration">VOLUNTEER NOW</a> <!--Link the volunteer_registration page here
-</div> -->
-<div class="donation-container" id="donashun">
-		<div class="donation-meter">
+<div style="display: none">
+	<form method='post' action='https://securegw-stage.paytm.in/theia/processTransaction' name='f1'></form>
+</div>
+
+<div class="donation-container" id="donashun" ng-app="ssbApp" ng-controller="ssbCtrl">
+		<div class="space">
+				<fieldset class="dswitch switch-two">
+				  <legend></legend>
+				  <input type="radio" name="view" id="yes" checked name="showHideExample" ng-model="showHideTest" ng-value="true" />
+				  <label for="yes">Monetary Donation</label>
+				  <input type="radio" name="view" id="no" name="showHideExample" ng-model="showHideTest" ng-value="false"/>
+				  <label for="no"> Non-monetary Donation </label> 
+				  <span class="switch-button"></span>
+				</fieldset>
+			  </div>
+		<div class="donation-meter" name="showHideExample" ng-show="showHideTest">
 				<strong style="margin-left:-2vw;">Monthly Requirements</strong>
 				<strong class="goal" style="margin-left:-2vw;">₹35,000</strong>
 				<span class="glass">
@@ -76,20 +78,20 @@
 				</div>
 			</div>
             
-		<div class="donation-box">
-			<div class="title">Donation Information</div>
+		<div class="donation-box" ng-show="showHideTest">
+			<div class="title">Monetary Donation Information</div>
 			
 			<div class="fields">
-				<input type="text" id="firstName" placeholder="First Name"> </input>
-				<input type="text" id="lastName" placeholder="Last Name"> </input>
-				<input type="text" id="email" placeholder="Email"> </input>
+				<input type="text" id="name" placeholder="Name">
+				<input type="text" id="mobile" placeholder="9999999999">
+				<input type="text" id="email" placeholder="Email">
 			</div>
 			
 			<div class="amount">
-				<div class="button">₹100</div>
-				<div class="button">₹500</div>
-				<div class="button">₹1000</div>
-				<div class="button">₹<input type="number" class="set-amount" placeholder=""> </input></div>
+				<div class="button" onclick="set_amount(100)" value="100">₹100</div>
+				<div class="button" onclick="set_amount(500)" value="500">₹500</div>
+				<div class="button" onclick="set_amount(1000)" value="1000">₹1000</div>
+				<div class="button">₹<input type="number" class="set-amount" id="donation_amount" placeholder=""></div>
 			</div>
 			
 			<div class="switch">
@@ -113,8 +115,45 @@
 	
 	<div class="confirm">
 	</div>
-			<div class="donate-button"><i class="fa fa-credit-card"></i> Donate Now</div>
-		</div>
+			<div class="donate-button" id="initPayment"><i class="fa fa-credit-card"></i>Donate Now</div>
+	</div>
+
+
+	<div class="donation-box" ng-hide="showHideTest">
+			<div class="title">Non-Monetary Donation Information</div>
+			<div id=nmdonation>
+				<br><h3> We accept non-monetary donations in the form of:</h3>
+				<li>Clothes</li>
+				<li>Grains (rice, wheat, etc.)</li>
+				<li>Food Items</li>
+				<li>Books</li>
+				<li>Stationary</li>
+				<li>Toys</li>
+				<li>Toiletaries</li>
+				<div id="divider"></div>
+				<div id="contact_us">
+						<strong>Location:</strong> <br>
+						Vidyanikethan <br>
+						(Society for Education and Social Development)<br>
+						Jaraganahalli, J P Nagar (Post), <br>
+						Bangalore 560 078<br><br><br>
+						
+						<strong>Call Us On :</strong><br>
+						+080 - 4148 7965<br><br><br>
+						
+						<strong>E-mail Us At:</strong><br>
+						vidyanik@gmail.com
+				</div>
+				<br><br><br><br><br><label>Enter your contact number for a call:</label> <br>
+				<div class="fields">
+					<input type="text" style="font-size: 1.5em; left:-1vw; top: 5vh; position:absolute;" placeholder="9036112332">
+				</div>
+			</div>	
+			
+	<div class="confirm">
+	</div>
+			<div class="donate-button" id="request_call"><i class="fa fa-credit-card"></i>Request a Call</div>
+	</div>
 </div>
 <script type="text/javascript" src="js/index.js"></script>
 </body>
