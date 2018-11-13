@@ -2,8 +2,59 @@
 <html>
 <head>
 	<title>NGO Portal | Management</title>
+	<link href="styles/management_dashboard.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/management_dashboard.js"></script>
 </head>
 <body>
-Hello, <i><%= user.username %></i>
-</body>
+    <span class="bckg"></span>
+    <header>
+        <h1>Dashboard</h1>
+        <nav>
+            <ul>
+            <li>
+                <a href="javascript:show_students();" data-title="View Students">View Students</a>
+            </li>
+            <li>
+                <a href="javascript:show_teachers();" data-title="View Teachers">View Teachers</a>
+            </li>
+            <li>
+                <a href="javascript:show_schedule();" data-title="View Schedule">View Schedule</a>
+            </li>
+            </ul>
+        </nav>
+    </header>
+	<main>
+        <div class="title">
+            <h2>Management</h2>
+            <a href="javascript:void(0);">Hello <%= user.username %>!</a>
+            <a href="/logout">Logout</a>
+        </div>
+
+				<article class="larg" style="display: none;" id="students">
+            <div id="detailsDiv1">
+            <h3>Schedule Details <span class="entypo-down-open"></span></h3>
+						</div>
+            <a href=""><img src="resources/add.png" id="add_image" style="width:30px; height:30px;"></a>
+    	    <a href=""><img src="resources/delete.png" id="del_image" style="width:30px; height:30px;"></a>
+        </article>
+
+        <article class="larg" style="display: none;" id="teachers">
+            <div id="detailsDiv2">
+            <h3>Teacher Details <span class="entypo-down-open"></span></h3>
+            </div>
+            <a href=""><img src="resources/add.png" id="add_image" style="width:30px; height:30px;"></a>
+    	    <a href=""><img src="resources/delete.png" id="del_image" style="width:30px; height:30px;"></a>
+        </article>
+
+        <article class="larg" style="display: none;" id="schedule">
+            <div id="detailsDiv">
+            <h3>Schedule Details <span class="entypo-down-open"></span></h3>
+						</div>
+            <a href=""><img src="resources/add.png" id="add_image" style="width:30px; height:30px;"></a>
+    	    <a href=""><img src="resources/delete.png" id="del_image" style="width:30px; height:30px;"></a>
+        </article>
+
+    </main>
+    </body>
 </html>
