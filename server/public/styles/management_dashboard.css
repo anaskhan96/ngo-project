@@ -105,12 +105,12 @@ header {
         transition: all 0.6s;
         border-bottom: 1px solid #797979;
       }
-      
+
       header nav ul li:hover a {
         color:#fff;
         transition:all 0.6s;
       }
-      
+
       header nav ul li a {
         line-height:55px;
         font-size:18px;
@@ -125,7 +125,7 @@ header {
           position:absolute;
           left:-32px;
         }
-    
+
         header nav ul li:first-child a:before {content:"\268f";}
         header nav ul li:nth-child(2) a:before {content:"\1f465";}
         header nav ul li:nth-child(3) a:before {content:"\1f4c5";}
@@ -185,7 +185,7 @@ a:hover {
     .larg div:hover {
         background-color:#fafafa;
     }
-    
+
     .larg div h3 span {
       font-family: 'entypo';
       font-size:19px;
@@ -197,7 +197,7 @@ a:hover {
         -webkit-transform:rotate(180deg);
         transition:all .5s;
     }
-    
+
     .larg div p {
       display:none;
       margin-left:10px;
@@ -215,4 +215,15 @@ a:hover {
       margin-left:10px;
       padding:0 15px;
       border-left:1px solid #ccc;
+    }
+
+    .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
     }

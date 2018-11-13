@@ -25,6 +25,9 @@ $(document).ready( function() {
         let p = document.createElement('div');
         p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
         var button = document.createElement('button');
+        var t = document.createTextNode("Remove Student");
+        button.appendChild(t);
+        button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
         button.addEventListener("click",function(){
           fetch('/management/deleteUser/student',{
             method : "POST",
@@ -40,7 +43,7 @@ $(document).ready( function() {
             }
             });
         })
-        p.append(button)
+        p.append(button);
         detailsDiv1.appendChild(p);
 
     });
@@ -49,14 +52,36 @@ $(document).ready( function() {
 
 fetch('/management/users/teacher').then((result) => result.json()).then((res) => {
   //console.log(res);
+  console.log(res);
   if(res.success){
     let detailsDiv2 = document.getElementById('detailsDiv2');
     res['users'].forEach(function(u){
       let p = document.createElement('div');
       p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
+      var button = document.createElement('button');
+      var t = document.createTextNode("Remove Teacher");
+      button.appendChild(t);
+      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
+      button.addEventListener("click",function(){
+        fetch('/management/deleteUser/teacher',{
+          method : "POST",
+          body: JSON.stringify(
+          {
+            name : u["username"],
+          }),
+          headers: {"Content-Type" : "application/json;charset=utf-8"}
+        }).then((result) => result.json()).then((res) => {
+          console.log(res);
+          if(res.success){
+            detailsDiv2.removeChild(p);
+          }
+          });
+      })
+      p.append(button);
       detailsDiv2.appendChild(p);
+
   });
-}
+  }
 });
 
   fetch('/management/schedules').then((result) => result.json()).then((res) => {
@@ -64,6 +89,24 @@ fetch('/management/users/teacher').then((result) => result.json()).then((res) =>
     for(let key in res){
       let p = document.createElement('div');
       p.innerHTML = "Name:"+res[key]["name"]+"</br>"+"Work Description:"+res[key]["workDescription"]+"</br>"+"Class:"+res[key]["class"]+"</br>"+"Subject:"+res[key]["subject"];
+      var button = document.createElement('button');
+      button.setAttribute("style", "background-color: #4CAF50;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
+      button.addEventListener("click",function(){
+        fetch('/management/deleteSchedule',{
+          method : "POST",
+          body: JSON.stringify(
+          {
+            name : u["name"],
+          }),
+          headers: {"Content-Type" : "application/json;charset=utf-8"}
+        }).then((result) => result.json()).then((res) => {
+          console.log(res);
+          if(res.success){
+            detailsDiv.removeChild(p);
+          }
+          });
+      })
+      p.append(button);
       detailsDiv.appendChild(p);
     }
     });
