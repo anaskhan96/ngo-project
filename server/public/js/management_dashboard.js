@@ -63,7 +63,8 @@ function fetch_students() {
 	              detailsDiv1.removeChild(p);
 	            }
 	            });
-	        })
+	          swal("Deleted!", "The student has been deleted from the database.", "success");
+	        });
 	        p.append(button);
 	        detailsDiv1.appendChild(p);
 
@@ -100,6 +101,7 @@ function fetch_teachers() {
 	            detailsDiv2.removeChild(p);
 	          }
 	          });
+	        swal("Deleted!", "The teacher has been deleted from the database.", "success");
 	      })
 	      p.append(button);
 	      detailsDiv2.appendChild(p);
@@ -138,6 +140,7 @@ function fetch_schedules() {
 	            detailsDiv.removeChild(p);
 	          }
 	          });
+	        swal("Deleted!", "The schedule has been deleted from the database.", "success");
 	      })
 	      p.append(button);
 	      detailsDiv.appendChild(p);
@@ -190,8 +193,8 @@ function show_donations() {
 
 
 function add_user() {		// show add student form
-	studentform=document.getElementById("form_addstudent");
-	studentform.style.display="block";
+	studentdiv=document.getElementById("div_addstudent");
+	studentdiv.style.display="block";
 	// alert("potray student add_user");
 }
 
@@ -216,6 +219,7 @@ function add_user_post(name_i, email_i, username_i, password_i){			// add studen
     show_students();  // ajax call to reload page not working
     // window.location="http://localhost:8080/management"
     });
+  swal("Added!", "The student has been added to the database", "success");
 }
 
 
@@ -260,6 +264,7 @@ function add_teacher_post(name_i, email_i, username_i, password_i, students_i){	
     show_teachers();  // ajax call to reload page not working
     // window.location="http://localhost:8080/management"
     });
+  swal("Added!", "The teacher has been added to the database", "success");
 }
 
 function submit_teacher_add() {
@@ -300,9 +305,7 @@ function add_schedule_post(name_i, workDescription_i, class_i, subject_i, days_i
     fetch_schedules();
     show_schedule();  // ajax call to reload page not working
     });
-
-
-
+  swal("Added!", "The schedule has been added to the database", "success");
 }
 
 

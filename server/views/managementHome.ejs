@@ -4,6 +4,7 @@
 	<title>NGO Portal | Management</title>
 	<link href="styles/management_dashboard.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="js/management_dashboard.js"></script>
 </head>
 <body>
@@ -41,7 +42,7 @@
                 <a href="javascript:add_user();" data-title="Add User">Add Student</a>
 
 
-                 <form id="form_addstudent" style="display:none">
+                 <div id="div_addstudent" style="display:none">
                   Name:<br>
                   <input type="text" name="firstname" id="fn"><br>
                   Email:<br>
@@ -51,7 +52,7 @@
                   Password:<br>
                   <input type="password" name="password" id="pw"><br>
                   <input type="submit" value="Submit" onclick="submit_student_add()">
-                </form> 
+                </div> 
         </article>
 
 
