@@ -236,7 +236,7 @@ function add_teacher(){		// show add teacher form
 }
 
 
-function add_teacher_post(name_i, email_i, username_i, password_i){			// add teacher function
+function add_teacher_post(name_i, email_i, username_i, password_i, students_i){			// add teacher function
     //do same as add_schedule and collect input using form
     console.log(name_i+"___"+email_i+"___"+username_i+"___"+password_i)
     fetch('/management/addUser/teacher',{
@@ -247,6 +247,7 @@ function add_teacher_post(name_i, email_i, username_i, password_i){			// add tea
       email : email_i,
       username : username_i,
       password: password_i,
+      students: students_i,
     }),
     headers: {"Content-Type" : "application/json;charset=utf-8"}
   }).then((result) => result.json()).then((res) => {
@@ -264,8 +265,10 @@ function submit_teacher_add() {
 	email=document.getElementById("t_em").value;
 	username=document.getElementById("t_un").value;
 	password=document.getElementById("t_pw").value;
+	students=document.getElementById("t_students").value;
 
-	add_teacher_post(firstname, email, username, password);
+	console.log(students);
+	add_teacher_post(firstname, email, username, password, students);
 	return false;
 
 }
