@@ -17,101 +17,13 @@ $(document).ready( function() {
     $('.title').children('h2').html(title);
   });
 
-  fetch('/management/users/student').then((result) => result.json()).then((res) => {
-    console.log(res);
-    if(res.success){
-      let detailsDiv1 = document.getElementById('detailsDiv1');
-      res['users'].forEach(function(u){
-        let p = document.createElement('div');
-        p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
-        var button = document.createElement('button');
-        var t = document.createTextNode("Remove Student");
-        button.appendChild(t);
-        button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
-        button.addEventListener("click",function(){
-          fetch('/management/deleteUser/student',{
-            method : "POST",
-            body: JSON.stringify(
-            {
-              name : u["username"],
-            }),
-            headers: {"Content-Type" : "application/json;charset=utf-8"}
-          }).then((result) => result.json()).then((res) => {
-            console.log(res);
-            if(res.success){
-              detailsDiv1.removeChild(p);
-            }
-            });
-        })
-        p.append(button);
-        detailsDiv1.appendChild(p);
+	fetch_students();
+	show_students();
 
-    });
-  }
-});
+	fetch_teachers();
 
-fetch('/management/users/teacher').then((result) => result.json()).then((res) => {
-  //console.log(res);
-  console.log(res);
-  if(res.success){
-    let detailsDiv2 = document.getElementById('detailsDiv2');
-    res['users'].forEach(function(u){
-      let p = document.createElement('div');
-      p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
-      var button = document.createElement('button');
-      var t = document.createTextNode("Remove Teacher");
-      button.appendChild(t);
-      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
-      button.addEventListener("click",function(){
-        fetch('/management/deleteUser/teacher',{
-          method : "POST",
-          body: JSON.stringify(
-          {
-            name : u["username"],
-          }),
-          headers: {"Content-Type" : "application/json;charset=utf-8"}
-        }).then((result) => result.json()).then((res) => {
-          console.log(res);
-          if(res.success){
-            detailsDiv2.removeChild(p);
-          }
-          });
-      })
-      p.append(button);
-      detailsDiv2.appendChild(p);
+	fetch_schedules();
 
-  });
-  }
-});
-
-  fetch('/management/schedules').then((result) => result.json()).then((res) => {
-    //console.log(res);
-    for(let key in res){
-      let p = document.createElement('div');
-      p.innerHTML = "Name:"+res[key]["name"]+"</br>"+"Work Description:"+res[key]["workDescription"]+"</br>"+"Class:"+res[key]["class"]+"</br>"+"Subject:"+res[key]["subject"];
-      var button = document.createElement('button');
-      var t = document.createTextNode("Remove Teacher");
-      button.appendChild(t);
-      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
-      button.addEventListener("click",function(){
-        fetch('/management/deleteSchedule',{
-          method : "POST",
-          body: JSON.stringify(
-          {
-            name : res[key]["name"],
-          }),
-          headers: {"Content-Type" : "application/json;charset=utf-8"}
-        }).then((result) => result.json()).then((res) => {
-          console.log(res);
-          if(res.success){
-            detailsDiv.removeChild(p);
-          }
-          });
-      })
-      p.append(button);
-      detailsDiv.appendChild(p);
-    }
-    });
 
     fetch('/management/donations').then((result) => result.json()).then((res) => {
       console.log(res);
@@ -123,6 +35,110 @@ fetch('/management/users/teacher').then((result) => result.json()).then((res) =>
     });
 });
 
+
+function fetch_students() {
+	fetch('/management/users/student').then((result) => result.json()).then((res) => {
+	    console.log(res);
+	    if(res.success){
+	      let detailsDiv1 = document.getElementById('detailsDiv1');
+	      detailsDiv1.innerHTML="";
+	      res['users'].forEach(function(u){
+	        let p = document.createElement('div');
+	        p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
+	        var button = document.createElement('button');
+	        var t = document.createTextNode("Remove Student");
+	        button.appendChild(t);
+	        button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
+	        button.addEventListener("click",function(){
+	          fetch('/management/deleteUser/student',{
+	            method : "POST",
+	            body: JSON.stringify(
+	            {
+	              name : u["username"],
+	            }),
+	            headers: {"Content-Type" : "application/json;charset=utf-8"}
+	          }).then((result) => result.json()).then((res) => {
+	            console.log(res);
+	            if(res.success){
+	              detailsDiv1.removeChild(p);
+	            }
+	            });
+	        })
+	        p.append(button);
+	        detailsDiv1.appendChild(p);
+
+	    });
+	  }
+	});
+}
+
+function fetch_teachers() {
+	fetch('/management/users/teacher').then((result) => result.json()).then((res) => {
+	  //console.log(res);
+	  console.log(res);
+	  if(res.success){
+	    let detailsDiv2 = document.getElementById('detailsDiv2');
+	    detailsDiv2.innerHTML="";
+	    res['users'].forEach(function(u){
+	      let p = document.createElement('div');
+	      p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
+	      var button = document.createElement('button');
+	      var t = document.createTextNode("Remove Teacher");
+	      button.appendChild(t);
+	      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
+	      button.addEventListener("click",function(){
+	        fetch('/management/deleteUser/teacher',{
+	          method : "POST",
+	          body: JSON.stringify(
+	          {
+	            name : u["username"],
+	          }),
+	          headers: {"Content-Type" : "application/json;charset=utf-8"}
+	        }).then((result) => result.json()).then((res) => {
+	          console.log(res);
+	          if(res.success){
+	            detailsDiv2.removeChild(p);
+	          }
+	          });
+	      })
+	      p.append(button);
+	      detailsDiv2.appendChild(p);
+
+	  });
+	  }
+	});
+}
+
+function fetch_schedules() {
+	  fetch('/management/schedules').then((result) => result.json()).then((res) => {
+	    //console.log(res);
+	    for(let key in res){
+	      let p = document.createElement('div');
+	      p.innerHTML = "Name:"+res[key]["name"]+"</br>"+"Work Description:"+res[key]["workDescription"]+"</br>"+"Class:"+res[key]["class"]+"</br>"+"Subject:"+res[key]["subject"];
+	      var button = document.createElement('button');
+	      var t = document.createTextNode("Remove Teacher");
+	      button.appendChild(t);
+	      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
+	      button.addEventListener("click",function(){
+	        fetch('/management/deleteSchedule',{
+	          method : "POST",
+	          body: JSON.stringify(
+	          {
+	            name : res[key]["name"],
+	          }),
+	          headers: {"Content-Type" : "application/json;charset=utf-8"}
+	        }).then((result) => result.json()).then((res) => {
+	          console.log(res);
+	          if(res.success){
+	            detailsDiv.removeChild(p);
+	          }
+	          });
+	      })
+	      p.append(button);
+	      detailsDiv.appendChild(p);
+	    }
+	    });
+}
 
 function show_students() {
   var students = document.getElementById("students");
@@ -168,33 +184,131 @@ function show_donations() {
 }
 
 
-
-
-function add_user(){
-    //do same as add_schedule and collect input using form
-    alert("Hello");
+function add_user() {		// show add student form
+	studentform=document.getElementById("form_addstudent");
+	studentform.style.display="block";
+	// alert("potray student add_user");
 }
 
-function add_teacher(){
-    //do same as add_schedule and collect input using form
-    alert("Hello");
-}
 
-function add_schedule(){
-  fetch('/management/addSchedule',{
+function add_user_post(name_i, email_i, username_i, password_i){			// add student function
+    //do same as add_schedule and collect input using form
+    console.log(name_i+"___"+email_i+"___"+username_i+"___"+password_i)
+    fetch('/management/addUser/student',{
     method : "POST",
     body: JSON.stringify(
     {
-      name : "Ash",
-      workDescription : "Stuff",
-      class : 6,
-      subject: "Math",
+      name : name_i,
+      email : email_i,
+      username : username_i,
+      password: password_i,
     }),
     headers: {"Content-Type" : "application/json;charset=utf-8"}
   }).then((result) => result.json()).then((res) => {
     console.log(res);
+    // displayvoid_students();
+    fetch_students();
+    show_students();  // ajax call to reload page not working
+    // window.location="http://localhost:8080/management"
+    });
+    alert("Hello");
+}
+
+
+function submit_student_add() {
+	firstname=document.getElementById("fn").value;
+	email=document.getElementById("em").value;
+	username=document.getElementById("un").value;
+	password=document.getElementById("pw").value;
+
+	add_user_post(firstname, email, username, password);
+	return false;
+
+
+}
+
+function add_teacher(){		// show add teacher form
+    //do same as add_schedule and collect input using form
+	teacherform=document.getElementById("form_addteacher");
+	teacherform.style.display="block";
+	// alert("potray student add_user");
+    alert("Hello");
+}
+
+
+function add_teacher_post(name_i, email_i, username_i, password_i){			// add teacher function
+    //do same as add_schedule and collect input using form
+    console.log(name_i+"___"+email_i+"___"+username_i+"___"+password_i)
+    fetch('/management/addUser/teacher',{
+    method : "POST",
+    body: JSON.stringify(
+    {
+      name : name_i,
+      email : email_i,
+      username : username_i,
+      password: password_i,
+    }),
+    headers: {"Content-Type" : "application/json;charset=utf-8"}
+  }).then((result) => result.json()).then((res) => {
+    console.log(res);
+    // displayvoid_students();
+    fetch_teachers();
+    show_teachers();  // ajax call to reload page not working
+    // window.location="http://localhost:8080/management"
+    });
+    alert("Hello");
+}
+
+function submit_teacher_add() {
+	firstname=document.getElementById("t_fn").value;
+	email=document.getElementById("t_em").value;
+	username=document.getElementById("t_un").value;
+	password=document.getElementById("t_pw").value;
+
+	add_teacher_post(firstname, email, username, password);
+	return false;
+
+}
+
+function add_schedule(){		// show add schedule form
+    //do same as add_schedule and collect input using form
+	scheduleform=document.getElementById("form_addschedule");
+	scheduleform.style.display="block";
+	// alert("potray student add_user");
+    alert("Hello");
+}
+
+
+function add_schedule_post(name_i, workDescription_i, class_i, subject_i){
+  fetch('/management/addSchedule',{
+    method : "POST",
+    body: JSON.stringify(
+    {
+      name : name_i,
+      workDescription : workDescription_i,
+      class : class_i,
+      subject: subject_i,
+    }),
+    headers: {"Content-Type" : "application/json;charset=utf-8"}
+  }).then((result) => result.json()).then((res) => {
+    console.log(res);
+    fetch_schedules();
     show_schedule();  // ajax call to reload page not working
     });
 
+  alert("hello");
+
+
+}
+
+
+function submit_schedule_add() {
+	firstname=document.getElementById("s_fn").value;
+	workDescription=document.getElementById("s_work").value;
+	grade=document.getElementById("s_class").value;
+	subject=document.getElementById("s_sub").value;
+
+	add_teacher_post(firstname, workDescription, grade, subject);
+	return false;
 
 }

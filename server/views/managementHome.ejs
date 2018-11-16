@@ -39,13 +39,41 @@
             <h3>Student Details <span class="entypo-down-open"></span></h3>
                 </div>
                 <a href="javascript:add_user();" data-title="Add User">Add Student</a>
+
+
+                 <form id="form_addstudent" style="display:none">
+                  Name:<br>
+                  <input type="text" name="firstname" id="fn"><br>
+                  Email:<br>
+                  <input type="email" name="lastname" id="em"><br><br>
+                  Username:<br>
+                  <input type="text" name="username" id="un"><br>
+                  Password:<br>
+                  <input type="password" name="password" id="pw"><br>
+                  <input type="submit" value="Submit" onclick="submit_student_add()">
+                </form> 
         </article>
+
+
 
         <article class="larg" style="display: none;" id="teachers">
             <div id="detailsDiv2">
             <h3>Teacher Details <span class="entypo-down-open"></span></h3>
             </div>
 						<a href="javascript:add_teacher();" data-title="Add Teacher">Add Teacher</a>
+
+
+            <form id="form_addteacher" style="display:none">
+                  Name:<br>
+                  <input type="text" name="firstname" id="t_fn"><br>
+                  Email:<br>
+                  <input type="email" name="lastname" id="t_em"><br><br>
+                  Username:<br>
+                  <input type="text" name="username" id="t_un"><br>
+                  Password:<br>
+                  <input type="password" name="password" id="t_pw"><br>
+                  <input type="submit" value="Submit" onclick="submit_teacher_add()">
+                </form> 
         </article>
 
         <article class="larg" style="display: none;" id="schedule">
@@ -53,6 +81,18 @@
             <h3>Schedule Details <span class="entypo-down-open"></span></h3>
 						</div>
 						<a href="javascript:add_schedule();" data-title="Add Schedule">Add Schedule</a>
+
+            <form id="form_addschedule" style="display:none">
+                  Name:<br>
+                  <input type="text" name="name" id="s_fn"><br>
+                  Work Description:<br>
+                  <input type="text" name="lastname" id="s_work"><br><br>
+                  Class:<br>
+                  <input type="text" name="class" id="s_class"><br>
+                  Subject:<br>
+                  <input type="text" name="subject" id="s_sub"><br>
+                  <input type="submit" value="Submit" onclick="submit_schedule_add()">
+                </form> 
         </article>
 
 				<article class="larg" style="display: none;" id="donations">
