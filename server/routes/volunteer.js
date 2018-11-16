@@ -120,7 +120,7 @@ volunteerRouter.post('/schedule/:option', (req, res) => {
 			Schedule.findOneAndUpdate({
 				name: req.body.name
 			}, {
-				$push: {
+				$addToSet: {
 					volunteersOpted: volunteer
 				}
 			}, (err, updatedSchedule) => {
