@@ -41,8 +41,15 @@ function fetch_students() {
 	    console.log(res);
 	    if(res.success){
 	      let detailsDiv1 = document.getElementById('detailsDiv1');
+	      let selectId = document.getElementById('t_students');
 	      detailsDiv1.innerHTML="";
 	      res['users'].forEach(function(u){
+
+	      	let option = document.createElement('option');
+	      	option.value = u.username;
+	      	option.innerHTML = u.name;
+	      	selectId.appendChild(option);	
+
 	        let p = document.createElement('div');
 	        p.innerHTML = "Name:"+u["name"]+"</br>"+"Username:"+u["username"]+"</br>"+"Email:"+u["email"]+"</br>";
 	        var button = document.createElement('button');
@@ -254,7 +261,7 @@ function add_teacher_post(name_i, email_i, username_i, password_i, students_i){	
       email : email_i,
       username : username_i,
       password: password_i,
-      students: [students_i],
+      students: students_i,
     }),
     headers: {"Content-Type" : "application/json;charset=utf-8"}
   }).then((result) => result.json()).then((res) => {
@@ -272,7 +279,11 @@ function submit_teacher_add() {
 	email=document.getElementById("t_em").value;
 	username=document.getElementById("t_un").value;
 	password=document.getElementById("t_pw").value;
-	students=document.getElementById("t_students").value;
+	studentSelect=document.getElementById("t_students").options;
+	students = [];
+	for(let i = 0; i < studentSelect.length; i++){
+		if(studentSelect[i].selected) students.push(studentSelect[i].value);		
+	}
 
 	console.log(students);
 	add_teacher_post(firstname, email, username, password, students);
