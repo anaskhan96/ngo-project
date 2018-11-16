@@ -54,7 +54,7 @@ function fetch_students() {
 	            method : "POST",
 	            body: JSON.stringify(
 	            {
-	              name : u["username"],
+	              username : u["username"],
 	            }),
 	            headers: {"Content-Type" : "application/json;charset=utf-8"}
 	          }).then((result) => result.json()).then((res) => {
@@ -91,7 +91,7 @@ function fetch_teachers() {
 	          method : "POST",
 	          body: JSON.stringify(
 	          {
-	            name : u["username"],
+	            username : u["username"],
 	          }),
 	          headers: {"Content-Type" : "application/json;charset=utf-8"}
 	        }).then((result) => result.json()).then((res) => {
@@ -114,9 +114,14 @@ function fetch_schedules() {
 	    //console.log(res);
 	    for(let key in res){
 	      let p = document.createElement('div');
-	      p.innerHTML = "Name:"+res[key]["name"]+"</br>"+"Work Description:"+res[key]["workDescription"]+"</br>"+"Class:"+res[key]["class"]+"</br>"+"Subject:"+res[key]["subject"];
+	      p.innerHTML = "Name:"+res[key]["name"]+"</br>"+"Work Description:"+res[key]["workDescription"]+"</br>"+"Class:"+res[key]["class"]+"</br>"+"Subject:"+res[key]["subject"]+"Days: "+res[key]["days"]+"</br>";
+	      p.innerHTML += "Volunteers who have opted for this:- </br><ul>";
+	      res[key]["volunteersOpted"].forEach((volunteer) => {
+	      	p.innerHTML += "<li>"+volunteer+"</li>";
+	      });
+	      p.innerHTML += "</ul>";
 	      var button = document.createElement('button');
-	      var t = document.createTextNode("Remove Teacher");
+	      var t = document.createTextNode("Remove schedule");
 	      button.appendChild(t);
 	      button.setAttribute("style", "background-color: red;border:2px solid black;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;");
 	      button.addEventListener("click",function(){
@@ -211,7 +216,6 @@ function add_user_post(name_i, email_i, username_i, password_i){			// add studen
     show_students();  // ajax call to reload page not working
     // window.location="http://localhost:8080/management"
     });
-    alert("Hello");
 }
 
 
@@ -229,10 +233,9 @@ function submit_student_add() {
 
 function add_teacher(){		// show add teacher form
     //do same as add_schedule and collect input using form
-	teacherform=document.getElementById("form_addteacher");
-	teacherform.style.display="block";
+	teacherdiv=document.getElementById("div_addteacher");
+	teacherdiv.style.display="block";
 	// alert("potray student add_user");
-    alert("Hello");
 }
 
 
@@ -247,7 +250,7 @@ function add_teacher_post(name_i, email_i, username_i, password_i, students_i){	
       email : email_i,
       username : username_i,
       password: password_i,
-      students: students_i,
+      students: [students_i],
     }),
     headers: {"Content-Type" : "application/json;charset=utf-8"}
   }).then((result) => result.json()).then((res) => {
@@ -257,7 +260,6 @@ function add_teacher_post(name_i, email_i, username_i, password_i, students_i){	
     show_teachers();  // ajax call to reload page not working
     // window.location="http://localhost:8080/management"
     });
-    alert("Hello");
 }
 
 function submit_teacher_add() {
@@ -275,14 +277,13 @@ function submit_teacher_add() {
 
 function add_schedule(){		// show add schedule form
     //do same as add_schedule and collect input using form
-	scheduleform=document.getElementById("form_addschedule");
-	scheduleform.style.display="block";
+	schedulediv=document.getElementById("div_addschedule");
+	schedulediv.style.display="block";
 	// alert("potray student add_user");
-    alert("Hello");
 }
 
 
-function add_schedule_post(name_i, workDescription_i, class_i, subject_i){
+function add_schedule_post(name_i, workDescription_i, class_i, subject_i, days_i){
   fetch('/management/addSchedule',{
     method : "POST",
     body: JSON.stringify(
@@ -291,6 +292,7 @@ function add_schedule_post(name_i, workDescription_i, class_i, subject_i){
       workDescription : workDescription_i,
       class : class_i,
       subject: subject_i,
+      days: days_i
     }),
     headers: {"Content-Type" : "application/json;charset=utf-8"}
   }).then((result) => result.json()).then((res) => {
@@ -299,7 +301,6 @@ function add_schedule_post(name_i, workDescription_i, class_i, subject_i){
     show_schedule();  // ajax call to reload page not working
     });
 
-  alert("hello");
 
 
 }
@@ -310,8 +311,9 @@ function submit_schedule_add() {
 	workDescription=document.getElementById("s_work").value;
 	grade=document.getElementById("s_class").value;
 	subject=document.getElementById("s_sub").value;
+	days = document.getElementById('s_days').value;
 
-	add_teacher_post(firstname, workDescription, grade, subject);
+	add_schedule_post(firstname, workDescription, grade, subject, days);
 	return false;
 
 }

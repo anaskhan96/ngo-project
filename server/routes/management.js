@@ -7,6 +7,7 @@ let Management = require('../models/management');
 let Schedule = require('../models/schedule');
 const chalk = require('chalk');
 let Donations = require('../models/donations');
+let Student = require('../models/student');
 
 // authentication middleware
 managementRouter.use((req, res, next) => {
@@ -89,28 +90,38 @@ managementRouter.post('/addUser/:usertype', (req, res) => {
 		username: req.body.username,
 		password: req.body.password
 	});
-	if (req.params.usertype == 'teacher') {
+	if (req.params.usertype == 'teacher' && req.body.students) {
 		// req.body.students contain all the usernames
-		if (req.body.students) {
-			for (let i = 0; i < req.body.students.length; i++) {
-				Student.findOne({
-					username: req.body.students[i]
-				}, (err, student) => {
-					if (!err && student != null) user.students.push(student);
-				});
+		Student.find({
+			username: {
+				$in: req.body.students
 			}
-		}
+		}, (err, students) => {
+			if (err) throw err;
+			user.students = students
+			user.save((err, result) => {
+				if (err) return res.json({
+					success: false,
+					errorMsg: err.toString()
+				});
+				console.log(chalk.yellow('Added ' + req.params.usertype + ': ' + result.username));
+				res.json({
+					success: true
+				});
+			});
+		});
+	} else {
+		user.save((err, result) => {
+			if (err) return res.json({
+				success: false,
+				errorMsg: err.toString()
+			});
+			console.log(chalk.yellow('Added ' + req.params.usertype + ': ' + result.username));
+			res.json({
+				success: true
+			});
+		});
 	}
-	user.save((err, result) => {
-		if (err) return res.json({
-			success: false,
-			errorMsg: err.toString()
-		});
-		console.log(chalk.yellow('Added ' + req.params.usertype + ': ' + result.username));
-		res.json({
-			success: true
-		});
-	});
 });
 
 /*
@@ -119,7 +130,7 @@ managementRouter.post('/addUser/:usertype', (req, res) => {
 	response: json { success (boolean) }
 */
 managementRouter.post('/deleteUser/:usertype', (req, res) => {
-	console.log(chalk.cyan('POST ' + chalk.blue('/management/delete')));
+	console.log(chalk.cyan('POST ' + chalk.blue('/management/deleteUser')));
 	if (req.params.usertype != "student" && req.params.usertype != "teacher") return res.json({
 		success: false
 	});

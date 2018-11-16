@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+let auth = require('../middleware/auth');
 
 const teacherSchema = mongoose.Schema({
 	name: {

@@ -63,7 +63,7 @@
 						<a href="javascript:add_teacher();" data-title="Add Teacher">Add Teacher</a>
 
 
-            <form id="form_addteacher" style="display:none">
+            <div id="div_addteacher" style="display:none">
                   Name:<br>
                   <input type="text" name="firstname" id="t_fn"><br>
                   Email:<br>
@@ -81,7 +81,7 @@
                     <option type="checkbox" value="sanju">Sanjith</option>
                   </select>
                   <input type="submit" value="Submit" onclick="submit_teacher_add()">
-                </form> 
+                </div> 
         </article>
 
         <article class="larg" style="display: none;" id="schedule">
@@ -90,7 +90,7 @@
 						</div>
 						<a href="javascript:add_schedule();" data-title="Add Schedule">Add Schedule</a>
 
-            <form id="form_addschedule" style="display:none">
+            <div id="div_addschedule" style="display:none">
                   Name:<br>
                   <input type="text" name="name" id="s_fn"><br>
                   Work Description:<br>
@@ -99,8 +99,10 @@
                   <input type="text" name="class" id="s_class"><br>
                   Subject:<br>
                   <input type="text" name="subject" id="s_sub"><br>
+                  Days:<br>
+                  <input type="text" name="days" id="s_days"><br>
                   <input type="submit" value="Submit" onclick="submit_schedule_add()">
-                </form> 
+                </div> 
         </article>
 
 				<article class="larg" style="display: none;" id="donations">
