@@ -19,7 +19,7 @@ const scheduleSchema = mongoose.Schema({
 		default: "any"
 	},
 	subject: {
-		type: String
+		type: String,
 		default: "any"
 	},
 	volunteersOpted: [{
