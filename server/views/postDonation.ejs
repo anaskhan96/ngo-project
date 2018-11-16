@@ -2,8 +2,15 @@
 <html>
 <head>
 	<title>NGO Portal | Post Donation</title>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-<h3><center>Success: <%= success %></center>
+<h3><center>Transaction completed</center></h3>
+<script type="text/javascript">
+	swal("Successful!", "Redirecting to home page", "success");
+	setTimeout(() => {
+		window.location.href = '/';
+	}, 3000);
+</script>
 </body>
 </html>
