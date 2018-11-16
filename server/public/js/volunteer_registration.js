@@ -98,8 +98,7 @@ var onComplete = function() {
             inputField.setAttribute("list", "subjects");
 
             prompt_div.style.display = "flex";
-            prompt_div.innerHTML = "Please select your preference for the subject you would like to teach from the requirements listed in the dropdown list."
-        }
+            prompt_div.innerHTML = "Please select your preference for the subject you would like to teach from the dropdown list."
         else if(position==4) {
             inputField.setAttribute("list", "slots");
 
