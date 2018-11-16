@@ -136,7 +136,7 @@ function show_schedules()
         {
          
           let p = document.createElement('div');
-          p.innerHTML = "Name: "+ res[key]["name"]+"</br>"+"Work Description: "+res[key]["workDescription"]+"</br>"+"Class: "+res[key]["class"]+"</br>";
+          p.innerHTML = "Name: "+ res[key]["name"]+"</br>"+"Work Description: "+res[key]["workDescription"]+"</br>"+"Class: "+res[key]["class"]+"</br>"+"Subject: "+res[key]["subject"]+"</br>"+"Days: "+res[key]["days"]+"</br>";
           var b = document.createElement("button");
           b.innerHTML = "Opt Schedule";
           b.className="optbtn";

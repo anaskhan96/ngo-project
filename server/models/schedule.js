@@ -11,13 +11,16 @@ const scheduleSchema = mongoose.Schema({
 		type: String
 	},
 	class: {
-		type: String
+		type: String,
+		default: "any"
 	},
 	days: {
-		type: String
+		type: String,
+		default: "any"
 	},
 	subject: {
 		type: String
+		default: "any"
 	},
 	volunteersOpted: [{
 		type: mongoose.Schema.Types.ObjectId,
