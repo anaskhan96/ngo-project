@@ -275,9 +275,10 @@ let initPaymentBtn = document.getElementById('initPayment');
 initPaymentBtn.addEventListener('click', initiatePayment, false);
 
 fetch('/donate/received').then((result) => result.json()).then((res) => {
+    let monthly_requirement = 35000;
     let moneyReceivedRatio = document.getElementById('moneyRatio');
     moneyReceivedRatio.style.height = (10 + res.amount/monthly_requirement).toString() + "px";
     moneyReceivedRatio.style.top = "-" + (55 + res.amount/monthly_requirement).toString() + "px"; 
     let moneyReceived = document.getElementById('moneyReceived');
-    moneyReceived.innerHTML = "₹" + res.amount; 
+    moneyReceived.innerHTML = "₹" + res.amount.toLocaleString('en-IN'); 
 });
