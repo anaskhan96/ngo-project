@@ -139,7 +139,7 @@ donateRouter.get('/received', (req, res) => {
 		let totalAmount = 0;
 		for (let i = 0; i < donations.length; i++) totalAmount += donations[i].amountDonated;
 		res.json({
-			amount: totalAmount.toLocaleString('en-IN')
+			amount: totalAmount
 		});
 	});
 });
