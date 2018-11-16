@@ -79,17 +79,31 @@ var onComplete = function() {
     })
 
     function putQuestion() {
+        prompt_div = document.getElementById("prompt");
+        prompt_div.style.display = "none";
+
         inputField.removeAttribute("list");
+
         inputLabel.innerHTML = questions[position].question
         inputField.type = questions[position].type || 'text'
+        
         if(position==2) {
             inputField.setAttribute("list", "grades");
+            
+            prompt_div.style.display = "flex";
+            prompt_div.innerHTML = "Please select the grades you would like to teach from the dropdown list."
+
         }
         else if(position==3) {
             inputField.setAttribute("list", "subjects");
-        }
+
+            prompt_div.style.display = "flex";
+            prompt_div.innerHTML = "Please select your preference for the subject you would like to teach from the dropdown list."
         else if(position==4) {
             inputField.setAttribute("list", "slots");
+
+            prompt_div.style.display = "flex";
+            prompt_div.innerHTML = "Please select your preferred days to teach."
         }
         inputField.value = questions[position].answer || ''
         inputField.focus()
