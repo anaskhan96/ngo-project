@@ -3,14 +3,48 @@
 <head>
 	<title>NGO Portal | Post Donation</title>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<style>
+		body {
+margin: 0;
+background: #fbc02d;
+font-family: 'Noto Sans', sans-serif;
+overflow-x: hidden;
+background-image: linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(../resources/class4.jpg);
+background-position: fixed; /* Center the image */
+background-repeat: no-repeat; /* Do not repeat the image */
+height: 100vh;
+background-size: cover;
+}
+
+#thanks{
+position: absolute;
+color: #fff;
+opacity: 0;
+top: 40vh;
+left: 15vw;
+transition: .8s ease-in-out;
+font-size: 4em;
+}
+	</style>
 </head>
 <body>
-<h3><center>Transaction completed</center></h3>
+<h1 id="thanks"><center>Thank you for your donation!</center></h1>
 <script type="text/javascript">
-	swal("Successful!", "Redirecting to home page", "success");
+	// var h1 = document.createElement('h1')
+	// h1.style.fontSize = "4em";
+	// h1.style.opacity = "0";
+	// h1.style.transition = ".8s ease-in-out";
+	// h1.style.color = "#fff";
+	// h1.style.position = "relative";
+	// h1.appendChild(document.createTextNode('Thank you for your donation!'))
+	setTimeout(function() {
+			setTimeout(function() { thanks.style.opacity = 1 }, 50)
+			
+            }, 1000)
+	// swal("Successful!", "Redirecting to home page", "success");
 	setTimeout(() => {
-		window.location.href = '/';
-	}, 3000);
+		window.location.replace('http://localhost:8080');
+	}, 4000);
 </script>
 </body>
 </html>
