@@ -14,7 +14,7 @@ cd ngo-project
 npm install
 ```
 
-+ Include the db and PayTM API details in a `.env` file in the root directory in the following form :-
++ Include the MongoDB and PayTM API details in a `.env` file in the root directory in the following form :-
 
 ```
 DB_USER=<username>
