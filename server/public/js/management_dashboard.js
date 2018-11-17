@@ -29,7 +29,7 @@ $(document).ready( function() {
       console.log(res);
       res['donations'].forEach(function(u){
         let p = document.createElement('div');
-        p.innerHTML = "Name:"+u["name"]+"</br>"+"Email:"+u["email"]+"</br>"+"moblie#:"+u["mobile"]+"</br>"+"Amount Donated:"+u["amountDonated"]+"</br>"+"Transaction Details:"+u["transactionDetails.STATUS"];
+        p.innerHTML = "Name:"+u["name"]+"</br>"+"Email:"+u["email"]+"</br>"+"moblie#:"+u["mobile"]+"</br>"+"Amount Donated:"+u["amount"]+"</br>"+"Transaction Details:"+u["status"];
         detailsDiv3.appendChild(p);
       });
     });
