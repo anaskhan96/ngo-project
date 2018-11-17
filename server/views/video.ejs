@@ -16,6 +16,10 @@
 		#videoframe {
 			margin: auto;
 		 }
+		 h1 {
+			color: white;
+			font-size: 2.6em;
+		 }
 		/* #comments {
 			text-align: center;
 		
@@ -364,6 +368,41 @@
   box-shadow: 0 1px #95a5a6;
   transform: translateY(4px);
 }
+
+.button-two {
+  padding:10px 15px;
+  outline: none;
+  position: relative;
+  top: -1vh;
+  left: 3vw;
+  color: white;
+  font-size: 1em;
+  background-color: #fb9a40;
+  border: none;
+  border-radius:5px;
+  box-shadow: 0 5px #95a5a6;
+}
+
+.button-two:hover{
+  background-color: #fb9a40;
+}
+
+.button-two:active {
+  background-color: #fb9a40;
+  box-shadow: 0 1px #95a5a6;
+  transform: translateY(4px);
+}
+
+.input-phone{
+  margin: 2em auto;
+  padding: 0.5em 0.25em;
+  border: none;
+  border-radius: 0.2em;
+  font-size: 1.5em;
+  width: 40vw;
+  text-align: left;
+  box-shadow: 0 0 1em 0.25em rgba(0,0,0,0.2);
+}
 	</style>
 </head>
 <body>
@@ -411,8 +450,8 @@
 	  </section>
 
 <div id="add_comment_container">
-<input type="text" name="comment" id="newComment">
-<button id="addComment">Comment</button>
+<input type="text" name="comment" class="input-phone" id="newComment" placeholder="Enter your comments..">
+<button id="addComment" class="button-two" >Comment</button>
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
