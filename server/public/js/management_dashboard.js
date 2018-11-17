@@ -40,6 +40,7 @@ function fetch_students() {
 	fetch('/management/users/student').then((result) => result.json()).then((res) => {
 	    console.log(res);
 	    if(res.success){
+
 	      let detailsDiv1 = document.getElementById('detailsDiv1');
 	      let selectId = document.getElementById('t_students');
 	      detailsDiv1.innerHTML="";
@@ -47,6 +48,7 @@ function fetch_students() {
 
 	      	let option = document.createElement('option');
 	      	option.value = u.username;
+	      	option.className = "select__group";
 	      	option.innerHTML = u.name;
 	      	selectId.appendChild(option);	
 
@@ -116,6 +118,10 @@ function fetch_teachers() {
 	  });
 	  }
 	});
+
+
+
+
 }
 
 function fetch_schedules() {
