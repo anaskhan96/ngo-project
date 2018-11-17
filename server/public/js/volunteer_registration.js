@@ -168,7 +168,7 @@ var onComplete = function() {
             if (questions[position]) hideCurrent(putQuestion)
             else hideCurrent(function() {
                 // remove the box if there is no next question
-                register.className = 'close'
+                    .className = 'close'
                 progress.style.width = '100%'
 
                 onComplete()
