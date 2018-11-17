@@ -282,3 +282,7 @@ div{
 .switch-field label:last-of-type {
   border-radius: 0 4px 4px 0;
 }
+
+.swal-button-container {
+	left: -7vw;
+}
