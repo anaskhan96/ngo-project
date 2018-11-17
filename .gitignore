@@ -10,3 +10,4 @@ server/routes/volunteer.js
 server/views/teacher_dashboard.ejs
 .DS_Storenpm-debug.log
 
+npm-debug.log

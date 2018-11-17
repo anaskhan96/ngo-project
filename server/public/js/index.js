@@ -238,9 +238,6 @@ function set_amount(amount) {
 }
 function initiatePayment() {
     swal("Transaction Accepted!","You will now be forwarded to the payment gateway.", "success");
-    setTimeout(() => {
-        window.location.href = '/';
-    }, 4000);
 
     let name = document.getElementById('name').value;
     let email = document.getElementById('email').value;
@@ -275,7 +272,7 @@ let initPaymentBtn = document.getElementById('initPayment');
 initPaymentBtn.addEventListener('click', initiatePayment, false);
 
 fetch('/donate/received').then((result) => result.json()).then((res) => {
-    let monthly_requirement = 35000;
+    let monthly_requirement = 5000;
     let moneyReceivedRatio = document.getElementById('moneyRatio');
     moneyReceivedRatio.style.height = (10 + res.amount/monthly_requirement).toString() + "px";
     moneyReceivedRatio.style.top = "-" + (55 + res.amount/monthly_requirement).toString() + "px"; 

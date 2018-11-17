@@ -91,7 +91,7 @@ var questions = [
                 inputField.setAttribute("list", "grades");
                 
                 prompt_div.style.display = "flex";
-                prompt_div.innerHTML = "Please select the grades you would like to teach from the dropdown list."
+                prompt_div.innerHTML = "Please select the grades you would like to teach from the dropdown list. The management will allot you an appropriate slot."
     
             }
             else if(position==3) {

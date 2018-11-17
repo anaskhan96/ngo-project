@@ -430,7 +430,7 @@
 <br>
 <br>
 <h2>Comments:</h2>
-<section class="comments">
+<section class="comments" id="commentss">
 		<% for(var i = 0; i < video.comments.length; i++) { %>
 		<article class="comment">
 		  <a class="comment-img" href="#non">
@@ -485,10 +485,11 @@ $(".bar").click(function() {
 				p.innerHTML = res.username + ': ' + res.text;
 				div.appendChild(p);
 				let button = document.createElement('button');
+				button.setAttribute('class', 'button-one');
 				button.setAttribute('onclick', "deleteComment('+"+res.text+"')");
 				button.innerHTML = "Delete";
 				div.appendChild(button);
-				document.getElementById('comments').appendChild(div);
+				document.getElementById('commentss').appendChild(div);
 				newComment.value = "";
 			}
 		});
@@ -507,6 +508,8 @@ $(".bar").click(function() {
 		}).then((response) => response.json()).then((res) => {
 			if(!res.success) alert('Could not delete');
 			else {
+				let div = event.target.parentElement;
+				div.style.display = "none";
 				// figure out this @grassknoted
 				/*
 				let div = event.target.parentElement;
