@@ -26,3 +26,7 @@ PAYTM_ACCTKEY=<acctkey>
 + Run `npm test` to run all the tests.
 
 + Run `npm start` to start the server at the specified port.
+
+---
+
+This project was built under the course *Software Engineering* in *PES University*.
