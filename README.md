@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/anaskhan96/ngo-project.svg?branch=master)](https://travis-ci.org/anaskhan96/ngo-project)
 
+![Image of the web-portal's homepage](https://i.imgur.com/QuYXnGU.jpg)
 
 This project aims at being a complete, end-to-end solution for the functioning, and management of the a school, which in our case is the Non-Profit Organization- Sri Vidya Nikethan School, Bangalore.
 
