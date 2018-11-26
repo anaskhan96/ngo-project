@@ -2,7 +2,6 @@
 
 // listing all imports
 let express = require('express');
-let bodyParser = require('body-parser');
 let cookieParser = require('cookie-parser');
 let requireDir = require('require-dir');
 let routes = requireDir('./routes');
@@ -24,8 +23,8 @@ let app = express();
 app.set('port', 8080);
 app.use(express.static(__dirname + '/public')); // css and js
 app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
 	extended: true
 }));
 app.set('views', __dirname + '/views');

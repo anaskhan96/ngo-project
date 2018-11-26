@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/anaskhan96/ngo-project#readme",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.1.0",
