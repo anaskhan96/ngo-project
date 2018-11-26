@@ -4,7 +4,7 @@
 
 ![Image of the web-portal's homepage](https://i.imgur.com/QuYXnGU.jpg)
 
-This project aims at being a complete, end-to-end solution for the functioning, and management of the a school, which in our case is the Non-Profit Organization- Sri Vidya Nikethan School, Bangalore.
+This project aims at being a complete, end-to-end solution for the functioning, and management of the school, which in our case is the Non-Profit Organization Sri Vidya Nikethan School, Bangalore.
 
 Vidyanikethan is a not-for-profit organization founded in 1988 to improve the lives and livelihoods of people from the vulnerable, marginalized and under-developed sections of the society. There is a significant need of teachers, and volunteers at the school judging from the performance of the students, which is what called for this project, as an attempt to help the Non-Profit Organization.
 
