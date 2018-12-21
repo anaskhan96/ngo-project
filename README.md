@@ -31,6 +31,8 @@ npm install
 + Include the MongoDB and PayTM API details in a `.env` file in the root directory in the following form :-
 
 ```
+DB_HOST=<hostname or ip addr>
+DB_PORT=<port number>
 DB_USER=<username>
 DB_PASS=<password>
 PAYTM_MID=<mid>
