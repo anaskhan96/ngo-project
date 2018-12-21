@@ -11,7 +11,7 @@ const chalk = require('chalk');
 require('dotenv').config();
 
 // connect to db
-mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@anask.xyz:27017/ngodb?authSource=admin', {
+mongoose.connect('mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASS + '@' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/ngodb?authSource=admin', {
 	useNewUrlParser: true
 }).then(
 	() => console.log(chalk.yellow('Connected to mongo database at anask.xyz')),
